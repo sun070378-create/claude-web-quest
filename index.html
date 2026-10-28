@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!-- lang="zh-Hant-TW"：告訴瀏覽器這是繁體中文（台灣）的網頁，有助於字體選擇與螢幕報讀 -->
+<html lang="zh-Hant-TW">
+<head>
+  <!-- 使用 UTF-8 編碼，中文字才不會變成亂碼 -->
+  <meta charset="UTF-8">
+  <!-- 讓網頁在手機上依螢幕寬度顯示，而不是縮成一小塊 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 瀏覽器分頁上顯示的標題 -->
+  <title>Jason｜個人介紹</title>
+
+  <style>
+    /* ==========================================================
+       一、全站設定（顏色、字體集中在這裡，想改風格先改這一段）
+       ========================================================== */
+    :root {
+      --color-bg: #faf9f6;        /* 背景色：帶一點暖意的米白 */
+      --color-text: #333333;      /* 主要文字顏色：深灰，比純黑柔和 */
+      --color-muted: #777777;     /* 次要文字顏色：說明文字、日期等 */
+      --color-accent: #5b7a6e;    /* 強調色：安靜的灰綠色，用在標題線與連結 */
+      --color-line: #e4e1da;      /* 分隔線顏色 */
+
+      /* 字體：依序嘗試，電腦上有哪個就用哪個 */
+      --font-main: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    /* 讓所有元素的寬度計算包含內距與邊框，排版比較好預測 */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* 整個頁面的基本樣式 */
+    body {
+      margin: 0;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-main);
+      font-size: 17px;            /* 中文字稍微大一點比較好讀 */
+      line-height: 1.9;           /* 行距拉開，閱讀中文較舒服 */
+      letter-spacing: 0.03em;     /* 字距微微加寬 */
+    }
+
+    /* ==========================================================
+       二、版面容器：把內容限制在中間，不會在大螢幕上拉得太寬
+       ========================================================== */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+
+    /* ==========================================================
+       三、頁首（名字與一句話介紹）
+       ========================================================== */
+    header {
+      margin-bottom: 56px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.4rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+
+    header .tagline {
+      margin: 8px 0 0;
+      color: var(--color-muted);
+    }
+
+    /* ==========================================================
+       四、每個區塊（關於我、我的創作、聯絡方式）共用的樣式
+       ========================================================== */
+    section {
+      margin-bottom: 56px;
+    }
+
+    /* 區塊標題：左邊加一條強調色的短線 */
+    section h2 {
+      margin: 0 0 20px;
+      padding-left: 12px;
+      border-left: 3px solid var(--color-accent);
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    section p {
+      margin: 0 0 1em;
+    }
+
+    /* ==========================================================
+       五、「我的創作」列表
+       ========================================================== */
+    .works {
+      list-style: none;   /* 拿掉預設的小圓點 */
+      margin: 0;
+      padding: 0;
+    }
+
+    .works li {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--color-line);
+    }
+
+    .works li:first-child {
+      border-top: 1px solid var(--color-line);
+    }
+
+    .works h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    .works .meta {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+      color: var(--color-muted);
+    }
+
+    /* ==========================================================
+       六、聯絡方式
+       ========================================================== */
+    .contact {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .contact li {
+      margin-bottom: 6px;
+    }
+
+    /* 「Email：」這類標籤文字 */
+    .contact .label {
+      display: inline-block;
+      min-width: 6em;
+      color: var(--color-muted);
+    }
+
+    /* 連結樣式：平時有淡淡底線，滑鼠移上去變明顯 */
+    a {
+      color: var(--color-accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--color-line);
+    }
+
+    a:hover {
+      border-bottom-color: var(--color-accent);
+    }
+
+    /* ==========================================================
+       七、頁尾
+       ========================================================== */
+    footer {
+      padding-top: 24px;
+      border-top: 1px solid var(--color-line);
+      font-size: 0.85rem;
+      color: var(--color-muted);
+    }
+
+    /* ==========================================================
+       八、手機版調整：螢幕寬度 600px 以下時套用
+       ========================================================== */
+    @media (max-width: 600px) {
+      body {
+        font-size: 16px;
+      }
+
+      .container {
+        padding: 40px 20px;
+      }
+
+      header {
+        margin-bottom: 40px;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      section {
+        margin-bottom: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 整個頁面的內容都包在這個容器裡，讓內容置中 -->
+  <div class="container">
+
+    <!-- ===== 頁首：名字和一句話介紹 ===== -->
+    <header>
+      <h1>Jason</h1>
+      <p class="tagline">喜歡寫字、拍照，正在學習做網頁。</p>
+    </header>
+
+    <!-- ===== 區塊一：自我介紹 ===== -->
+    <section>
+      <h2>關於我</h2>
+      <!-- 小提醒：中文段落盡量寫在同一行，換行會在畫面上多出一個空格 -->
+      <p>你好，我是 Jason。平常喜歡在安靜的地方讀書、散步，把生活中看到的小事記錄下來。</p>
+      <p>這是我做的第一個網頁，用來練習 HTML 和 CSS。之後會慢慢把這裡變成放作品和想法的小角落。</p>
+    </section>
+
+    <!-- ===== 區塊二：我的創作（三個作品，每個作品是一個 li） ===== -->
+    <section>
+      <h2>我的創作</h2>
+      <ul class="works">
+        <li>
+          <h3>《午後的巷口》</h3>
+          <p class="meta">攝影集・2026</p>
+        </li>
+        <li>
+          <h3>《寫給十年後的自己》</h3>
+          <p class="meta">散文・2025</p>
+        </li>
+        <li>
+          <h3>《城市裡的小綠地》</h3>
+          <p class="meta">手繪地圖・2025</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== 區塊三：聯絡方式（目前都是假的，記得換成自己的） ===== -->
+    <section>
+      <h2>聯絡方式</h2>
+      <ul class="contact">
+        <li>
+          <span class="label">Email</span>
+          <a href="mailto:jason@example.com">jason@example.com</a>
+        </li>
+        <li>
+          <span class="label">Instagram</span>
+          <a href="https://instagram.com/jason.example">@jason.example</a>
+        </li>
+        <li>
+          <span class="label">GitHub</span>
+          <a href="https://github.com/jason-example">github.com/jason-example</a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== 頁尾：版權或簡短文字 ===== -->
+    <footer>
+      © 2026 Jason・謝謝你的來訪
+    </footer>
+
+  </div>
+</body>
+</html>
