@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 11 關：留言表單</title>
+
+  <style>
+    body {
+      background-color: #f6f4ef;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 48px auto;
+      padding: 0 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 16px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 6px;
+      padding: 10px 12px;
+      font: inherit;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: white;
+    }
+
+    textarea {
+      min-height: 120px;
+    }
+
+    button {
+      margin-top: 24px;
+      padding: 10px 28px;
+      font: inherit;
+      border: none;
+      border-radius: 8px;
+      background-color: #3d6b56;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>✉️ 給 Jason 留言</h1>
+
+  <!-- form：表單。按下送出按鈕時，瀏覽器會先檢查必填欄位 -->
+  <form>
+    <!-- label 的 for 和 input 的 id 一樣 → 點文字也能把游標移到輸入框 -->
+    <label for="name">你的名字</label>
+    <input id="name" type="text" placeholder="例如：小明" required>
+
+    <!-- type="email"：瀏覽器會檢查格式，手機也會跳出有 @ 的鍵盤 -->
+    <label for="email">Email</label>
+    <input id="email" type="email" placeholder="you@example.com">
+
+    <!-- select：下拉選單，每個選項是一個 option -->
+    <label for="topic">留言類型</label>
+    <select id="topic">
+      <option>打個招呼</option>
+      <option>對作品的感想</option>
+      <option>合作邀約</option>
+    </select>
+
+    <!-- textarea：可以輸入多行文字，它有結尾標籤 -->
+    <label for="message">留言內容</label>
+    <textarea id="message" placeholder="想說什麼都可以……" required></textarea>
+
+    <!-- type="submit"：按下去會送出表單 -->
+    <button type="submit">送出</button>
+  </form>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

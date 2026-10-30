@@ -115,7 +115,7 @@
       win = "<div class='win'><strong>🎉 過關！</strong>" +
         (config.next
           ? "<a href='" + config.next + "'>前往下一關 →</a>"
-          : "你打倒最終魔王了！太厲害了！") +
+          : "你完成了目前所有的關卡！太厲害了！🏆") +
         "</div>";
     }
 

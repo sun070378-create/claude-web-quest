@@ -52,6 +52,19 @@
     }
 
     /* 關卡格子：電腦上兩欄，手機上一欄 */
+    /* 章節標題 */
+    .chapter {
+      margin: 32px 0 14px;
+      font-size: 1.2rem;
+    }
+
+    .chapter small {
+      margin-left: 8px;
+      font-size: 0.85rem;
+      font-weight: normal;
+      color: #888;
+    }
+
     .levels {
       list-style: none;
       margin: 0;
@@ -155,12 +168,12 @@
 
     <!-- 進度條：由下面的 JavaScript 依照過關紀錄更新 -->
     <div class="progress">
-      <div id="progress-text">已通過 0 / 10 關</div>
+      <div id="progress-text">已通過 0 關</div>
       <div class="bar"><span id="progress-bar"></span></div>
     </div>
 
-    <!-- 關卡列表：由下面的 JavaScript 產生 -->
-    <ul class="levels" id="levels"></ul>
+    <!-- 關卡列表：由下面的 JavaScript 依章節產生 -->
+    <div id="levels"></div>
 
     <p class="footer">
       過關紀錄存在你的瀏覽器裡。每一關的說明在該資料夾的 README.md。
@@ -169,18 +182,30 @@
   </div>
 
   <script>
-    // 所有關卡的資料：資料夾名稱、關卡名稱、學習主題
+    // 章節資料
+    const CHAPTERS = [
+      { number: 1, name: "第一章：網頁的基本功", desc: "HTML、CSS、JavaScript 入門" },
+      { number: 2, name: "第二章：更進一步", desc: "表單、Grid、動畫、資料" }
+    ];
+
+    // 所有關卡的資料：章節、資料夾名稱、關卡名稱、學習主題
+    // boss: true 代表這是章節的魔王關
     const LEVELS = [
-      { folder: "01-hello-html", name: "說聲哈囉", topic: "HTML 基本標籤" },
-      { folder: "02-list-link-image", name: "清單與連結", topic: "ul、ol、a、img" },
-      { folder: "03-css-color", name: "幫網頁上色", topic: "CSS 顏色與字體" },
-      { folder: "04-box-model", name: "盒子的秘密", topic: "padding、border、margin" },
-      { folder: "05-flexbox", name: "並排的魔法", topic: "Flexbox 排版" },
-      { folder: "06-responsive", name: "手機也要好看", topic: "響應式設計 @media" },
-      { folder: "07-first-js", name: "第一行 JavaScript", topic: "點擊事件" },
-      { folder: "08-counter", name: "喝水計數器", topic: "變數與 if 判斷" },
-      { folder: "09-dark-mode", name: "夜間模式", topic: "切換 class" },
-      { folder: "10-boss-todo", name: "最終魔王：待辦清單", topic: "新增與刪除元素" }
+      { chapter: 1, folder: "01-hello-html", name: "說聲哈囉", topic: "HTML 基本標籤" },
+      { chapter: 1, folder: "02-list-link-image", name: "清單與連結", topic: "ul、ol、a、img" },
+      { chapter: 1, folder: "03-css-color", name: "幫網頁上色", topic: "CSS 顏色與字體" },
+      { chapter: 1, folder: "04-box-model", name: "盒子的秘密", topic: "padding、border、margin" },
+      { chapter: 1, folder: "05-flexbox", name: "並排的魔法", topic: "Flexbox 排版" },
+      { chapter: 1, folder: "06-responsive", name: "手機也要好看", topic: "響應式設計 @media" },
+      { chapter: 1, folder: "07-first-js", name: "第一行 JavaScript", topic: "點擊事件" },
+      { chapter: 1, folder: "08-counter", name: "喝水計數器", topic: "變數與 if 判斷" },
+      { chapter: 1, folder: "09-dark-mode", name: "夜間模式", topic: "切換 class" },
+      { chapter: 1, folder: "10-boss-todo", name: "第一章魔王：待辦清單", topic: "新增與刪除元素", boss: true },
+      { chapter: 2, folder: "11-forms", name: "留言表單", topic: "form、input、label" },
+      { chapter: 2, folder: "12-grid", name: "照片牆", topic: "CSS Grid 排版" },
+      { chapter: 2, folder: "13-animation", name: "讓網頁動起來", topic: "hover、transition、動畫" },
+      { chapter: 2, folder: "14-local-storage", name: "不會忘記的筆記本", topic: "localStorage 存資料" },
+      { chapter: 2, folder: "15-array-loop", name: "第二章魔王：我的書櫃", topic: "陣列、forEach、filter", boss: true }
     ];
 
     // 讀取過關紀錄（checker.js 過關時會寫進去）
@@ -194,8 +219,21 @@
 
     function render() {
       const progress = loadProgress();
-      const list = document.querySelector("#levels");
-      list.innerHTML = "";
+      const container = document.querySelector("#levels");
+      container.innerHTML = "";
+
+      // 每一章做一個標題和一個清單
+      const lists = {};
+      CHAPTERS.forEach(function (chapter) {
+        const title = document.createElement("h2");
+        title.className = "chapter";
+        title.innerHTML = chapter.name + "<small>" + chapter.desc + "</small>";
+        const ul = document.createElement("ul");
+        ul.className = "levels";
+        container.appendChild(title);
+        container.appendChild(ul);
+        lists[chapter.number] = ul;
+      });
 
       let clearedCount = 0;
       let currentFound = false;
@@ -213,7 +251,7 @@
           li.classList.add("current");
           currentFound = true;
         }
-        if (number === LEVELS.length) {
+        if (level.boss) {
           li.classList.add("boss");
         }
 
@@ -221,10 +259,10 @@
           '<a href="' + level.folder + '/start.html">' +
           '<span class="badge">' + (cleared ? "⭐" : number) + "</span>" +
           "<span>" +
-          '<span class="name">' + (number === LEVELS.length ? "🐉 " : "第 " + number + " 關：") + level.name + "</span>" +
+          '<span class="name">' + (level.boss ? "🐉 " : "第 " + number + " 關：") + level.name + "</span>" +
           '<span class="topic">' + level.topic + "</span>" +
           "</span></a>";
-        list.appendChild(li);
+        lists[level.chapter].appendChild(li);
       });
 
       document.querySelector("#progress-text").textContent =

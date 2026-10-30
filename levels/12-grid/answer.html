@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 12 關：照片牆</title>
+
+  <style>
+    body {
+      background-color: #f6f4ef;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    .photo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      border-radius: 12px;
+      font-size: 48px;
+    }
+
+    .photo:nth-child(1) { background-color: #f7d6bf; }
+    .photo:nth-child(2) { background-color: #cfe3d4; }
+    .photo:nth-child(3) { background-color: #d5def0; }
+    .photo:nth-child(4) { background-color: #f3e3a8; }
+    .photo:nth-child(5) { background-color: #e6d3ec; }
+    .photo:nth-child(6) { background-color: #f2c9c9; }
+    .photo:nth-child(7) { background-color: #cdeaea; }
+
+    /* Grid：像在網頁上畫一張表格，再把東西放進格子裡 */
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;   /* 3 欄，fr = 平分剩下的空間 */
+      gap: 12px;                            /* 格子之間的距離 */
+    }
+
+    /* 這張照片佔 2 欄寬 */
+    .featured {
+      grid-column: span 2;
+      font-size: 72px;
+    }
+
+    /* 手機上改成 2 欄 */
+    @media (max-width: 600px) {
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📷 我的照片牆</h1>
+
+  <div class="gallery">
+    <div class="photo featured">🌅</div>
+    <div class="photo">🐈</div>
+    <div class="photo">🌳</div>
+    <div class="photo">☕</div>
+    <div class="photo">🚲</div>
+    <div class="photo">🌸</div>
+    <div class="photo">🏔️</div>
+  </div>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

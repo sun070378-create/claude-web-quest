@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第二章魔王：我的書櫃</title>
+
+  <style>
+    body {
+      background-color: #f6f4ef;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    #search {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 14px;
+      font: inherit;
+      border: 1px solid #ccc;
+      border-radius: 999px;
+    }
+
+    #result-count {
+      margin: 12px 0;
+      color: #888;
+    }
+
+    /* 書的卡片：用 Grid 自動排成好幾欄 */
+    #book-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .book {
+      padding: 16px;
+      background-color: white;
+      border-left: 6px solid #3d6b56;
+      border-radius: 8px;
+    }
+
+    .book h3 {
+      margin: 0 0 4px;
+      font-size: 1.05rem;
+    }
+
+    .book p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .empty {
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📚 我的書櫃</h1>
+
+  <input id="search" type="search" placeholder="🔍 搜尋書名……">
+  <p id="result-count"></p>
+  <div id="book-list"></div>
+
+  <script>
+    // 書的資料：一個「陣列」，裡面每一本書是一個「物件」
+    const books = [
+      { title: "小王子", author: "聖修伯里" },
+      { title: "解憂雜貨店", author: "東野圭吾" },
+      { title: "原子習慣", author: "詹姆斯・克利爾" },
+      { title: "被討厭的勇氣", author: "岸見一郎、古賀史健" },
+      { title: "挪威的森林", author: "村上春樹" }
+      // 任務 1：在這裡加上至少一本你自己喜歡的書（記得上一行結尾要加逗號）
+    ];
+
+    const searchInput = document.querySelector("#search");
+    const resultCount = document.querySelector("#result-count");
+    const bookList = document.querySelector("#book-list");
+
+    // ↓↓↓ 從這裡開始寫 ↓↓↓
+
+    // 任務 2：寫一個函式 showBooks(list)，把 list 裡的每一本書都顯示出來
+    //   - 先清空：bookList.innerHTML = "";
+    //   - 用 list.forEach(function (book) { … }) 一本一本處理
+    //   - 每一本做成 <div class="book"><h3>書名</h3><p>作者</p></div>，放進 bookList
+    //   - 最後記得呼叫一次：showBooks(books);
+
+
+    // 任務 3：在 showBooks 裡，把數量顯示在 resultCount，例如「共 6 本」
+    //   提示：list.length
+
+
+    // 任務 4：在搜尋框打字時（input 事件），只顯示書名包含關鍵字的書
+    //   提示：
+    //   const keyword = searchInput.value.trim();
+    //   const result = books.filter(function (book) {
+    //     return book.title.includes(keyword);
+    //   });
+    //   showBooks(result);
+
+
+    // 任務 5：如果一本都找不到，在 bookList 裡顯示「找不到符合的書」
+    //   提示：if (list.length === 0) { … }
+
+
+    // ↑↑↑ 寫到這裡為止 ↑↑↑
+  </script>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 14 關：不會忘記的筆記本</title>
+
+  <style>
+    body {
+      background-color: #f4f1ea;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 48px auto;
+      padding: 0 20px;
+    }
+
+    #note {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 240px;
+      padding: 16px;
+      font: inherit;
+      line-height: 1.8;
+      border: 1px solid #d8d2c4;
+      border-radius: 10px;
+      background-color: #fffdf6;
+      resize: vertical;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      color: #888;
+    }
+
+    #clear-btn {
+      padding: 4px 14px;
+      font: inherit;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🗒️ 隨手筆記</h1>
+  <p>在這裡寫下任何東西，關掉網頁再打開，內容都還會在。</p>
+
+  <textarea id="note" placeholder="今天想記下什麼？"></textarea>
+
+  <div class="toolbar">
+    <span id="char-count">0 字</span>
+    <button id="clear-btn">清空筆記</button>
+  </div>
+
+  <script>
+    const note = document.querySelector("#note");
+    const charCount = document.querySelector("#char-count");
+    const clearButton = document.querySelector("#clear-btn");
+
+    // ↓↓↓ 從這裡開始寫 ↓↓↓
+
+    // 任務 1：每次打字（input 事件），就把內容存進 localStorage，名字叫 "note"
+    //   note.addEventListener("input", function () {
+    //     localStorage.setItem("note", note.value);
+    //   });
+
+
+    // 任務 2：網頁一打開，就把之前存的內容拿出來，放回 textarea
+    //   const saved = localStorage.getItem("note");
+    //   如果 saved 不是 null，就 note.value = saved;
+
+
+    // 任務 3：顯示目前有幾個字，例如「12 字」
+    //   字數：note.value.length
+    //   打字時要更新，網頁打開時也要更新一次
+
+
+    // 任務 4：按「清空筆記」時，把 textarea 清空，也把 localStorage 裡的 "note" 刪掉
+    //   提示：localStorage.removeItem("note");
+
+
+    // ↑↑↑ 寫到這裡為止 ↑↑↑
+  </script>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

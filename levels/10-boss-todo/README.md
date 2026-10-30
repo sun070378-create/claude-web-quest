@@ -1,4 +1,4 @@
-# 最終魔王：待辦清單 🐉
+# 第一章魔王：待辦清單 🐉
 
 > 你已經學會了 HTML、CSS 和 JavaScript 的基本功。現在，用它們做出一個真正能用的小工具吧！
 
@@ -59,7 +59,7 @@ deleteButton.addEventListener("click", function () {
 
 ## 打倒魔王之後……
 
-恭喜你完成全部 10 關！🎉 接下來可以挑戰：
+恭喜你完成第一章！🎉 準備好了就前往**第二章**（第 11 關）。也可以先挑戰：
 
 - 在輸入框按 Enter 也能新增（`keydown` 事件、`event.key === "Enter"`）
 - 重新整理後清單不會消失（搜尋關鍵字：`localStorage`）

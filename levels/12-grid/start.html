@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 12 關：照片牆</title>
+
+  <style>
+    body {
+      background-color: #f6f4ef;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    /* 每一格「照片」（用顏色和表情符號代替真的照片） */
+    .photo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      border-radius: 12px;
+      font-size: 48px;
+    }
+
+    .photo:nth-child(1) { background-color: #f7d6bf; }
+    .photo:nth-child(2) { background-color: #cfe3d4; }
+    .photo:nth-child(3) { background-color: #d5def0; }
+    .photo:nth-child(4) { background-color: #f3e3a8; }
+    .photo:nth-child(5) { background-color: #e6d3ec; }
+    .photo:nth-child(6) { background-color: #f2c9c9; }
+    .photo:nth-child(7) { background-color: #cdeaea; }
+
+    /* ↓↓↓ 從這裡開始寫 ↓↓↓ */
+
+    .gallery {
+      /* 任務 1：使用 Grid 排版（display: grid;） */
+
+      /* 任務 2：分成 3 欄，每欄一樣寬（grid-template-columns: 1fr 1fr 1fr;） */
+
+      /* 任務 3：格子之間留空隙（gap） */
+
+    }
+
+    /* 任務 4：讓 .featured 這張大照片橫跨 2 欄（grid-column: span 2;） */
+
+
+    /* 任務 5：手機上（600px 以下）改成 2 欄 */
+
+
+    /* ↑↑↑ 寫到這裡為止 ↑↑↑ */
+  </style>
+</head>
+<body>
+
+  <h1>📷 我的照片牆</h1>
+
+  <div class="gallery">
+    <div class="photo featured">🌅</div>
+    <div class="photo">🐈</div>
+    <div class="photo">🌳</div>
+    <div class="photo">☕</div>
+    <div class="photo">🚲</div>
+    <div class="photo">🌸</div>
+    <div class="photo">🏔️</div>
+  </div>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>
