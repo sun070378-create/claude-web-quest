@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>網頁闖關地圖</title>
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #fdf8ec;
+      color: #2b2b2b;
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 40px 20px 64px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .intro {
+      margin: 4px 0 24px;
+      color: #666;
+    }
+
+    /* 進度條 */
+    .progress {
+      margin-bottom: 32px;
+    }
+
+    .bar {
+      height: 14px;
+      background-color: #eee;
+      border: 2px solid #2b2b2b;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background-color: #5bb57a;
+      transition: width 0.5s;
+    }
+
+    /* 關卡格子：電腦上兩欄，手機上一欄 */
+    .levels {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .levels a {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background-color: white;
+      border: 2px solid #2b2b2b;
+      border-radius: 12px;
+      box-shadow: 3px 3px 0 #2b2b2b;
+      color: inherit;
+      text-decoration: none;
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .levels a:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 #2b2b2b;
+    }
+
+    /* 關卡編號的圓圈 */
+    .badge {
+      flex: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border: 2px solid #2b2b2b;
+      border-radius: 50%;
+      background-color: #fff;
+      font-weight: 700;
+    }
+
+    .name {
+      display: block;
+      font-weight: 700;
+    }
+
+    .topic {
+      display: block;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    /* 已過關 */
+    .cleared a {
+      background-color: #e8f6ec;
+    }
+
+    .cleared .badge {
+      background-color: #5bb57a;
+      color: white;
+    }
+
+    /* 目前該挑戰的關卡 */
+    .current a {
+      background-color: #ffe69a;
+    }
+
+    .boss a {
+      border-style: dashed;
+    }
+
+    .footer {
+      margin-top: 32px;
+      font-size: 0.85rem;
+      color: #888;
+    }
+
+    .footer button {
+      font: inherit;
+      padding: 2px 10px;
+      border: 1px solid #aaa;
+      border-radius: 6px;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .levels {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <h1>🗺️ 網頁闖關地圖</h1>
+    <p class="intro">從 HTML 到 JavaScript，一關一關打倒魔王！點選關卡開始挑戰。</p>
+
+    <!-- 進度條：由下面的 JavaScript 依照過關紀錄更新 -->
+    <div class="progress">
+      <div id="progress-text">已通過 0 / 10 關</div>
+      <div class="bar"><span id="progress-bar"></span></div>
+    </div>
+
+    <!-- 關卡列表：由下面的 JavaScript 產生 -->
+    <ul class="levels" id="levels"></ul>
+
+    <p class="footer">
+      過關紀錄存在你的瀏覽器裡。每一關的說明在該資料夾的 README.md。
+      <button type="button" id="reset">清除過關紀錄</button>
+    </p>
+  </div>
+
+  <script>
+    // 所有關卡的資料：資料夾名稱、關卡名稱、學習主題
+    const LEVELS = [
+      { folder: "01-hello-html", name: "說聲哈囉", topic: "HTML 基本標籤" },
+      { folder: "02-list-link-image", name: "清單與連結", topic: "ul、ol、a、img" },
+      { folder: "03-css-color", name: "幫網頁上色", topic: "CSS 顏色與字體" },
+      { folder: "04-box-model", name: "盒子的秘密", topic: "padding、border、margin" },
+      { folder: "05-flexbox", name: "並排的魔法", topic: "Flexbox 排版" },
+      { folder: "06-responsive", name: "手機也要好看", topic: "響應式設計 @media" },
+      { folder: "07-first-js", name: "第一行 JavaScript", topic: "點擊事件" },
+      { folder: "08-counter", name: "喝水計數器", topic: "變數與 if 判斷" },
+      { folder: "09-dark-mode", name: "夜間模式", topic: "切換 class" },
+      { folder: "10-boss-todo", name: "最終魔王：待辦清單", topic: "新增與刪除元素" }
+    ];
+
+    // 讀取過關紀錄（checker.js 過關時會寫進去）
+    function loadProgress() {
+      try {
+        return JSON.parse(localStorage.getItem("webquest-progress")) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function render() {
+      const progress = loadProgress();
+      const list = document.querySelector("#levels");
+      list.innerHTML = "";
+
+      let clearedCount = 0;
+      let currentFound = false;
+
+      LEVELS.forEach(function (level, index) {
+        const number = index + 1;
+        const cleared = Boolean(progress[number]);
+        const li = document.createElement("li");
+
+        if (cleared) {
+          clearedCount = clearedCount + 1;
+          li.classList.add("cleared");
+        } else if (!currentFound) {
+          // 第一個還沒過的關卡，就是「目前要挑戰的」
+          li.classList.add("current");
+          currentFound = true;
+        }
+        if (number === LEVELS.length) {
+          li.classList.add("boss");
+        }
+
+        li.innerHTML =
+          '<a href="' + level.folder + '/start.html">' +
+          '<span class="badge">' + (cleared ? "⭐" : number) + "</span>" +
+          "<span>" +
+          '<span class="name">' + (number === LEVELS.length ? "🐉 " : "第 " + number + " 關：") + level.name + "</span>" +
+          '<span class="topic">' + level.topic + "</span>" +
+          "</span></a>";
+        list.appendChild(li);
+      });
+
+      document.querySelector("#progress-text").textContent =
+        clearedCount === LEVELS.length
+          ? "🏆 全部通關！你太厲害了！"
+          : "已通過 " + clearedCount + " / " + LEVELS.length + " 關";
+      document.querySelector("#progress-bar").style.width = (clearedCount / LEVELS.length) * 100 + "%";
+    }
+
+    document.querySelector("#reset").addEventListener("click", function () {
+      if (confirm("確定要清除所有過關紀錄嗎？")) {
+        try { localStorage.removeItem("webquest-progress"); } catch (e) {}
+        render();
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>

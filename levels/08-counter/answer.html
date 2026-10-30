@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 8 關：喝水計數器</title>
+
+  <style>
+    body {
+      background-color: #eef6fb;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 48px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    #count {
+      display: block;
+      font-size: 72px;
+      font-weight: bold;
+      color: #2a7ab0;
+    }
+
+    button {
+      font-size: 18px;
+      min-width: 64px;
+      padding: 8px 16px;
+      margin: 4px;
+      border: 2px solid #2a7ab0;
+      border-radius: 8px;
+      background-color: white;
+      color: #2a7ab0;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💧 今天喝了幾杯水？</h1>
+
+  <span id="count">0</span>
+
+  <button id="minus">－</button>
+  <button id="plus">＋</button>
+  <button id="reset">歸零</button>
+
+  <script>
+    // let：可以改變的變數，用來記住現在的杯數
+    let count = 0;
+
+    const countText = document.querySelector("#count");
+    const plusButton = document.querySelector("#plus");
+    const minusButton = document.querySelector("#minus");
+    const resetButton = document.querySelector("#reset");
+
+    // 把「更新畫面」寫成一個函式（function），三個按鈕都能重複使用
+    function updateScreen() {
+      countText.textContent = count;
+    }
+
+    plusButton.addEventListener("click", function () {
+      count = count + 1;
+      updateScreen();
+    });
+
+    minusButton.addEventListener("click", function () {
+      // if：只有條件成立時，才執行大括號裡的程式
+      if (count > 0) {
+        count = count - 1;
+      }
+      updateScreen();
+    });
+
+    resetButton.addEventListener("click", function () {
+      count = 0;
+      updateScreen();
+    });
+  </script>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

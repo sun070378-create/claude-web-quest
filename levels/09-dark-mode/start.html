@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 9 關：夜間模式</title>
+
+  <style>
+    /* 日間模式（平常的樣子） */
+    body {
+      background-color: #faf9f6;
+      color: #333333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.8;
+      max-width: 640px;
+      margin: 48px auto;
+      padding: 0 20px;
+    }
+
+    #theme-toggle {
+      font-size: 16px;
+      padding: 8px 16px;
+      border: 1px solid currentColor;  /* currentColor = 跟文字同一個顏色 */
+      border-radius: 999px;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    /* ↓↓↓ CSS 的部分寫在這裡 ↓↓↓ */
+
+    /* 任務 1：寫出夜間模式的樣子。
+       當 body 有 class="dark" 時，背景變深、文字變淺。
+       提示：body.dark { background-color: …; color: …; } */
+
+
+    /* ↑↑↑ CSS 寫到這裡為止 ↑↑↑ */
+  </style>
+</head>
+<body>
+
+  <button id="theme-toggle">🌙 夜間模式</button>
+
+  <h1>睡前的閱讀時間</h1>
+  <p>晚上關了燈，用手機看文章時，刺眼的白色背景常常讓眼睛很累。所以很多網站都提供「夜間模式」，把背景換成深色。</p>
+  <p>這一關，你要親手做出這個功能：按一下按鈕切換成夜間模式，再按一下切換回來。</p>
+
+  <script>
+    // ↓↓↓ JavaScript 寫在這裡 ↓↓↓
+
+    const toggleButton = document.querySelector("#theme-toggle");
+
+    // 任務 2：按下按鈕時，幫 body 加上或拿掉 "dark" 這個 class
+    //   提示：document.body.classList.toggle("dark");
+    //   toggle 的意思是「切換」：沒有就加上，有就拿掉
+
+
+    // 任務 3：按鈕上的文字也要跟著變
+    //   夜間模式時顯示「☀️ 日間模式」，日間模式時顯示「🌙 夜間模式」
+    //   提示：document.body.classList.contains("dark") 可以知道現在有沒有 dark
+
+
+    // ↑↑↑ 寫到這裡為止 ↑↑↑
+  </script>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

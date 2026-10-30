@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 8 關：喝水計數器</title>
+
+  <style>
+    body {
+      background-color: #eef6fb;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 48px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    #count {
+      display: block;
+      font-size: 72px;
+      font-weight: bold;
+      color: #2a7ab0;
+    }
+
+    button {
+      font-size: 18px;
+      min-width: 64px;
+      padding: 8px 16px;
+      margin: 4px;
+      border: 2px solid #2a7ab0;
+      border-radius: 8px;
+      background-color: white;
+      color: #2a7ab0;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💧 今天喝了幾杯水？</h1>
+
+  <span id="count">0</span>
+
+  <button id="minus">－</button>
+  <button id="plus">＋</button>
+  <button id="reset">歸零</button>
+
+  <script>
+    // ↓↓↓ 從這裡開始寫 JavaScript ↓↓↓
+
+    // 先幫你準備好：用一個變數記住現在是幾杯（let = 之後可以改變的變數）
+    let count = 0;
+
+    // 找到網頁上的元素
+    const countText = document.querySelector("#count");
+    const plusButton = document.querySelector("#plus");
+    const minusButton = document.querySelector("#minus");
+    const resetButton = document.querySelector("#reset");
+
+    // 任務 1：按「＋」時，count 加 1，並把新的數字顯示在畫面上
+    //   提示：count = count + 1;
+    //         countText.textContent = count;
+
+
+    // 任務 2：按「－」時，count 減 1
+
+
+    // 任務 3：按「歸零」時，count 變回 0
+
+
+    // 任務 4：杯數不能是負的！按「－」時，只有 count 大於 0 才減
+    //   提示：if (count > 0) { … }
+
+
+    // ↑↑↑ 寫到這裡為止 ↑↑↑
+  </script>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

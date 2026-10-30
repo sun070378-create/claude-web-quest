@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- 任務 1：加上 viewport 設定，讓手機用正確的寬度顯示網頁 -->
+  <!-- 提示：<meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+
+  <title>第 6 關：手機也要好看</title>
+
+  <style>
+    body {
+      background-color: #f6f4ef;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .cards {
+      display: flex;
+      gap: 16px;
+    }
+
+    .card {
+      flex: 1;
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    /* ↓↓↓ 從這裡開始寫 ↓↓↓ */
+
+    /* 任務 2：圖片太寬會超出畫面。讓 img 最寬不超過容器（max-width: 100%;） */
+
+
+    /* 任務 3、4：寫一個 @media，當螢幕寬度 600px 以下時，
+       把 .cards 改成直的排（flex-direction: column;） */
+
+
+    /* ↑↑↑ 寫到這裡為止 ↑↑↑ */
+  </style>
+</head>
+<body>
+
+  <img src="banner.svg" alt="藍天和綠色山丘">
+
+  <h1>我的創作</h1>
+
+  <div class="cards">
+    <div class="card">
+      <h3>《午後的巷口》</h3>
+      <p>攝影集。記錄住家附近巷子裡，下午三點的光線。</p>
+    </div>
+    <div class="card">
+      <h3>《寫給十年後的自己》</h3>
+      <p>散文。寫下現在的煩惱和願望，十年後再打開來看。</p>
+    </div>
+    <div class="card">
+      <h3>《城市裡的小綠地》</h3>
+      <p>手繪地圖。把市區裡不起眼的小公園一個一個畫下來。</p>
+    </div>
+  </div>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

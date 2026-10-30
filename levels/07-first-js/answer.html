@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 7 關：第一行 JavaScript</title>
+
+  <style>
+    body {
+      background-color: #f6f4ef;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 48px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 8px;
+      background-color: #3d6b56;
+      color: white;
+      cursor: pointer;
+    }
+
+    #message {
+      font-size: 22px;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>神奇按鈕</h1>
+
+  <button id="hello-btn">按我一下</button>
+  <p id="message">還沒有人按過按鈕……</p>
+
+  <script>
+    // 1. 找到網頁上的元素，存進變數（const = 一個不會再換掉的變數）
+    const button = document.querySelector("#hello-btn");
+    const message = document.querySelector("#message");
+
+    // 2. 「監聽」按鈕的 click 事件：按鈕被點擊時，執行大括號裡的程式
+    button.addEventListener("click", function () {
+      message.textContent = "哈囉！你成功寫出第一段 JavaScript 了 🎉";  // 改文字
+      message.style.color = "tomato";                                   // 改顏色
+    });
+  </script>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

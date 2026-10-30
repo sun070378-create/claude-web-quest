@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 7 關：第一行 JavaScript</title>
+
+  <style>
+    body {
+      background-color: #f6f4ef;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 48px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 8px;
+      background-color: #3d6b56;
+      color: white;
+      cursor: pointer;
+    }
+
+    #message {
+      font-size: 22px;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>神奇按鈕</h1>
+
+  <!-- 這兩個元素都有 id，JavaScript 可以用 id 找到它們 -->
+  <button id="hello-btn">按我一下</button>
+  <p id="message">還沒有人按過按鈕……</p>
+
+  <script>
+    // ↓↓↓ 從這裡開始寫 JavaScript ↓↓↓
+    // （JavaScript 的註解是用兩條斜線 // 開頭）
+
+    // 任務 1：用 document.querySelector 找到按鈕和訊息，存進變數
+    //   const button = document.querySelector("#hello-btn");
+    //   const message = document.querySelector("#message");
+
+
+    // 任務 2：當按鈕被點擊時，改變 message 的文字（textContent）
+
+
+    // 任務 3：在同一個點擊事件裡，也把 message 的顏色改掉（style.color）
+
+
+    // ↑↑↑ 寫到這裡為止 ↑↑↑
+  </script>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

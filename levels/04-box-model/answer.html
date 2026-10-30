@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 4 關：盒子的秘密</title>
+
+  <style>
+    body {
+      background-color: #eef1f4;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+    }
+
+    .card {
+      background-color: white;
+      padding: 24px 28px;                         /* 內距：上下 24px、左右 28px */
+      border: 1px solid #d5dbe1;                  /* 邊框：粗細 樣式 顏色 */
+      border-radius: 12px;                        /* 圓角 */
+      max-width: 400px;                           /* 最寬 400px，螢幕小時會自動變窄 */
+      margin: 48px auto;                          /* 外距：上下 48px、左右 auto（自動置中） */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* 陰影：水平 垂直 模糊 顏色 */
+    }
+
+    /* 把卡片裡的標題和段落上下多餘的空白縮小一點 */
+    .card h2 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Jason</h2>
+    <p>喜歡寫字、拍照的網頁新手。正在一關一關學習做網頁。</p>
+    <p>📮 jason@example.com</p>
+  </div>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

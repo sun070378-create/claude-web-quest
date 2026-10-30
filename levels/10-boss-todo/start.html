@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>最終魔王：待辦清單</title>
+
+  <style>
+    body {
+      background-color: #f4f1ea;
+      color: #333333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 48px auto;
+      padding: 0 20px;
+    }
+
+    /* 輸入框和新增按鈕排成一排 */
+    .add-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    #todo-input {
+      flex: 1;
+      font-size: 16px;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      background-color: #3d6b56;
+      color: white;
+      cursor: pointer;
+    }
+
+    #todo-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    /* 每一個待辦事項 */
+    #todo-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      background-color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* 刪除按鈕小一點、顏色淡一點 */
+    #todo-list li button {
+      padding: 2px 10px;
+      font-size: 14px;
+      background-color: #e8e4dc;
+      color: #555;
+    }
+
+    /* 完成的事項：劃掉、變淡（已經幫你寫好） */
+    #todo-list li.done span {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📝 今天要做的事</h1>
+
+  <div class="add-row">
+    <input id="todo-input" type="text" placeholder="輸入要做的事……">
+    <button id="add-btn">新增</button>
+  </div>
+
+  <ul id="todo-list">
+    <!-- 新增的事項會出現在這裡，每一項長這樣：
+         <li><span>買牛奶</span><button>刪除</button></li> -->
+  </ul>
+
+  <script>
+    // 這是最終魔王！用前面學到的所有東西打倒它吧 💪
+
+    const input = document.querySelector("#todo-input");
+    const addButton = document.querySelector("#add-btn");
+    const list = document.querySelector("#todo-list");
+
+    // ↓↓↓ 從這裡開始寫 ↓↓↓
+
+    // 任務 1：按「新增」時，把輸入框的文字變成清單裡的一項
+    //   - 輸入框的文字：input.value
+    //   - 做出新元素：const li = document.createElement("li");
+    //   - 放進清單：list.appendChild(li);
+
+    // 任務 2：新增之後，把輸入框清空（input.value = "";）
+
+    // 任務 3：如果輸入框是空的（或只有空白），就不要新增
+    //   提示：input.value.trim() === "" 代表是空的
+
+    // 任務 4：點一下某一項，就切換 "done" class（劃掉 / 取消劃掉）
+
+    // 任務 5：每一項後面都有一個「刪除」按鈕，按下去就把那一項移除
+    //   提示：li.remove();
+
+
+    // ↑↑↑ 寫到這裡為止 ↑↑↑
+  </script>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>
