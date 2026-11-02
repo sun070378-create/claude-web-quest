@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 22 關：分門別類</title>
+
+  <!-- 任務 1：在這個資料夾新增一個 style.css 檔案，把下面 <style> 裡的 CSS 全部搬過去 -->
+  <!-- 任務 2：刪掉整個 <style> 標籤，改成用 <link> 載入 style.css -->
+  <!--   <link rel="stylesheet" href="style.css"> -->
+  <style>
+    body {
+      background-color: #f4efe6;
+      color: #3b3a36;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.8;
+      max-width: 560px;
+      margin: 64px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #8a5a44;
+    }
+
+    #quote {
+      min-height: 4em;
+      margin: 32px 0;
+      font-size: 22px;
+    }
+
+    #quote-btn {
+      padding: 10px 24px;
+      font: inherit;
+      border: none;
+      border-radius: 999px;
+      background-color: #8a5a44;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📜 每日一句</h1>
+  <p id="quote">按下按鈕，抽一句今天的話。</p>
+  <button id="quote-btn">再來一句</button>
+
+  <!-- 任務 3：在這個資料夾新增一個 script.js 檔案，把下面 <script> 裡的程式全部搬過去 -->
+  <!-- 任務 4：刪掉這個 <script>…</script>，改成 <script src="script.js"></script> -->
+  <script>
+    const quotes = [
+      "慢慢來，比較快。",
+      "今天的努力，是明天的底氣。",
+      "做完比做好更重要。",
+      "休息不是偷懶，是為了走更遠的路。",
+      "每個專家，都曾經是新手。"
+    ];
+
+    const quoteText = document.querySelector("#quote");
+    const quoteButton = document.querySelector("#quote-btn");
+
+    function showRandomQuote() {
+      const index = Math.floor(Math.random() * quotes.length);
+      quoteText.textContent = "「" + quotes[index] + "」";
+    }
+
+    quoteButton.addEventListener("click", showRandomQuote);
+  </script>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

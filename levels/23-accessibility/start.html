@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- 任務 1：告訴瀏覽器和螢幕報讀軟體，這頁是什麼語言（加上 lang="zh-Hant-TW"） -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 23 關：每個人都能用</title>
+
+  <style>
+    body {
+      background-color: white;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 8px;
+      padding: 10px 12px;
+      font: inherit;
+      border: 1px solid #999;
+      border-radius: 8px;
+    }
+
+    /* 任務 5：這個灰色太淡了，看不太清楚。換一個更深的顏色（例如 #666） */
+    .hint {
+      font-size: 0.9rem;
+      color: #bbbbbb;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 28px;
+      font: inherit;
+      border: none;
+      border-radius: 8px;
+      background-color: #3d6b56;
+      color: white;
+      cursor: pointer;
+    }
+
+    #result {
+      color: #3d6b56;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 任務 2：這張圖片沒有 alt，看不到圖的人不知道它是什麼。幫它加上說明 -->
+  <img src="../06-responsive/banner.svg">
+
+  <h1>📚 社區讀書會報名</h1>
+  <p class="hint">每月第一個星期六下午，在社區圖書館二樓。名額 20 人，額滿為止。</p>
+
+  <!-- 任務 3：這兩個輸入框只有 placeholder，沒有 <label>。
+       placeholder 一打字就消失，螢幕報讀軟體也不一定會唸。幫它們各加一個 label -->
+  <input id="name" type="text" placeholder="你的名字">
+  <input id="email" type="email" placeholder="Email">
+
+  <!-- 任務 4：這個「按鈕」其實是 <div>，用鍵盤按 Tab 選不到它，螢幕報讀軟體也不知道它能按。
+       把它改成真正的 <button> -->
+  <div class="btn" onclick="signUp()">報名</div>
+
+  <p id="result"></p>
+
+  <script>
+    function signUp() {
+      const name = document.querySelector("#name").value.trim();
+      document.querySelector("#result").textContent =
+        name === "" ? "請填寫名字" : name + "，報名成功！我們到時見 📖";
+    }
+  </script>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

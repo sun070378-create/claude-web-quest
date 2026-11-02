@@ -1,0 +1,32 @@
+/* 每日一句的樣式（從 index.html 的 <style> 搬過來，<style> 標籤本身不用搬） */
+
+body {
+  background-color: #f4efe6;
+  color: #3b3a36;
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  line-height: 1.8;
+  max-width: 560px;
+  margin: 64px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #8a5a44;
+}
+
+#quote {
+  min-height: 4em;
+  margin: 32px 0;
+  font-size: 22px;
+}
+
+#quote-btn {
+  padding: 10px 24px;
+  font: inherit;
+  border: none;
+  border-radius: 999px;
+  background-color: #8a5a44;
+  color: white;
+  cursor: pointer;
+}

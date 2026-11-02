@@ -11,6 +11,9 @@
 
   var STORAGE_KEY = "webquest-progress";
 
+  /* 關卡地圖的位置：跟 checker.js 放在同一個資料夾（levels/） */
+  var MAP_URL = new URL("index.html", document.currentScript.src).href;
+
   /* 讀取 / 儲存闖關進度（存在瀏覽器裡，讀不到也不會壞掉） */
   function loadProgress() {
     try {
@@ -112,7 +115,8 @@
     var passed = results.filter(function (r) { return r.ok; }).length;
     var total = results.length;
     var allDone = passed === total;
-    var isAnswer = /answer\.html$/.test(location.pathname);
+    /* 參考解答：answer.html，或放在 answer/ 資料夾裡的網頁 */
+    var isAnswer = /answer(\.html$|\/)/.test(location.pathname);
 
     if (allDone && !isAnswer) {
       saveProgress(config.level);
@@ -162,7 +166,7 @@
       "    <ul>" + items + "</ul>" + win +
       (isAnswer ? "<div class='note'>📖 這是參考解答。自己的作品請寫在 start.html。</div>" : "") +
       "    <button type='button' class='recheck'>重新檢查</button>" +
-      "    <div class='note'>改完程式碼記得存檔，再按瀏覽器的「重新整理」。<br><a href='../index.html'>🗺️ 回到關卡地圖</a></div>" +
+      "    <div class='note'>改完程式碼記得存檔，再按瀏覽器的「重新整理」。<br><a href='" + MAP_URL + "'>🗺️ 回到關卡地圖</a></div>" +
       "  </div>" +
       "</div>";
 
@@ -193,6 +197,10 @@
 
   window.Level = {
     define: function (config) {
+      /* 「下一關」的路徑是相對於 check.js 寫的，換成完整網址，放在子資料夾的網頁也能用 */
+      if (config.next && document.currentScript) {
+        config.next = new URL(config.next, document.currentScript.src).href;
+      }
       if (document.readyState === "complete") {
         start(config);
       } else {
