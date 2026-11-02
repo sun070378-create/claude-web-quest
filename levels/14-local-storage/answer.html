@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 14 關：不會忘記的筆記本</title>
+
+  <style>
+    body {
+      background-color: #f4f1ea;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 48px auto;
+      padding: 0 20px;
+    }
+
+    #note {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 240px;
+      padding: 16px;
+      font: inherit;
+      line-height: 1.8;
+      border: 1px solid #d8d2c4;
+      border-radius: 10px;
+      background-color: #fffdf6;
+      resize: vertical;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      color: #888;
+    }
+
+    #clear-btn {
+      padding: 4px 14px;
+      font: inherit;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🗒️ 隨手筆記</h1>
+  <p>在這裡寫下任何東西，關掉網頁再打開，內容都還會在。</p>
+
+  <textarea id="note" placeholder="今天想記下什麼？"></textarea>
+
+  <div class="toolbar">
+    <span id="char-count">0 字</span>
+    <button id="clear-btn">清空筆記</button>
+  </div>
+
+  <script>
+    const note = document.querySelector("#note");
+    const charCount = document.querySelector("#char-count");
+    const clearButton = document.querySelector("#clear-btn");
+
+    // 更新字數的函式，好幾個地方都會用到
+    function updateCount() {
+      charCount.textContent = note.value.length + " 字";
+    }
+
+    // 網頁打開時：把之前存的內容拿出來
+    // localStorage.getItem 找不到時會得到 null（代表「什麼都沒有」）
+    const saved = localStorage.getItem("note");
+    if (saved !== null) {
+      note.value = saved;
+    }
+    updateCount();
+
+    // 每次打字：存起來，並更新字數
+    // input 事件 = 內容一有變化就觸發（打字、貼上、刪除都算）
+    note.addEventListener("input", function () {
+      localStorage.setItem("note", note.value);
+      updateCount();
+    });
+
+    // 清空：畫面和 localStorage 都要清
+    clearButton.addEventListener("click", function () {
+      note.value = "";
+      localStorage.removeItem("note");
+      updateCount();
+    });
+  </script>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

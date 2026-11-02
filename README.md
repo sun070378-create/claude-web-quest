@@ -3,6 +3,29 @@
 這是一個用來練習寫網頁的小專案。整個網頁只有一個檔案：`index.html`，
 不需要安裝任何東西。
 
+> 🎮 **想一步一步學做網頁？** 到 [`levels/`](levels/) 資料夾玩「網頁闖關」，
+> 一共 15 關，從 HTML 學到 JavaScript，每關都會自動檢查你有沒有過關。
+> 用瀏覽器打開 `levels/index.html` 就能看到關卡地圖。
+
+## 🌐 網頁上線（GitHub Pages）
+
+設定好之後，網址是：
+
+- 個人網頁：<https://sun070378-create.github.io/test-place-for-claude/>
+- 闖關地圖：<https://sun070378-create.github.io/test-place-for-claude/levels/>
+
+**第一次設定（只要做一次）：**
+
+1. 打開 GitHub 上的這個專案，點上方的 **Settings**
+2. 左邊選單點 **Pages**
+3. 「Build and deployment」底下的 **Source** 選 **Deploy from a branch**
+4. **Branch** 選 `main`，資料夾選 `/ (root)`，按 **Save**
+5. 等 1～2 分鐘，重新整理那一頁，上方會出現網址
+
+之後只要 `main` 有更新（例如合併 Pull Request），網站就會在幾分鐘內自動更新。
+
+> 專案根目錄的 `.nojekyll` 是一個空檔案，告訴 GitHub「直接放上網頁就好，不要另外加工」，請不要刪除。
+
 ## 怎麼打開它？
 
 在電腦上找到 `index.html`，**用滑鼠雙擊**，它就會在瀏覽器（Chrome、Edge、Safari 等）裡打開。

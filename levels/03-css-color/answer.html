@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 3 關：幫網頁上色</title>
+
+  <style>
+    /* body：整個頁面。設定背景色和預設字體 */
+    body {
+      background-color: #f7f3ea;   /* 米色背景 */
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    /* h1：大標題換成深綠色 */
+    h1 {
+      color: #3d6b56;
+    }
+
+    /* p：段落的字大一點、行距拉開 */
+    p {
+      font-size: 18px;
+      line-height: 1.8;            /* 行高是字體大小的 1.8 倍 */
+      color: #444444;
+    }
+
+    /* .highlight：前面有一個點，代表選擇 class="highlight" 的元素 */
+    .highlight {
+      background-color: #fff176;   /* 螢光黃 */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>我的閱讀筆記</h1>
+
+  <p>最近讀了一本關於散步的書。作者說，走路的時候，腦袋會自動整理事情，所以很多好點子都是在散步時想到的。</p>
+
+  <p>我最喜歡的一句話是：<span class="highlight">慢慢走，也是一種前進。</span>以後心情煩悶的時候，我也要出門走一走。</p>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

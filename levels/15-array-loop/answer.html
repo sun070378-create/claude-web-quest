@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第二章魔王：我的書櫃</title>
+
+  <style>
+    body {
+      background-color: #f6f4ef;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    #search {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 14px;
+      font: inherit;
+      border: 1px solid #ccc;
+      border-radius: 999px;
+    }
+
+    #result-count {
+      margin: 12px 0;
+      color: #888;
+    }
+
+    #book-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .book {
+      padding: 16px;
+      background-color: white;
+      border-left: 6px solid #3d6b56;
+      border-radius: 8px;
+    }
+
+    .book h3 {
+      margin: 0 0 4px;
+      font-size: 1.05rem;
+    }
+
+    .book p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .empty {
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📚 我的書櫃</h1>
+
+  <input id="search" type="search" placeholder="🔍 搜尋書名……">
+  <p id="result-count"></p>
+  <div id="book-list"></div>
+
+  <script>
+    // 陣列 [ ]：一串資料。物件 { }：一筆資料的各個欄位
+    const books = [
+      { title: "小王子", author: "聖修伯里" },
+      { title: "解憂雜貨店", author: "東野圭吾" },
+      { title: "原子習慣", author: "詹姆斯・克利爾" },
+      { title: "被討厭的勇氣", author: "岸見一郎、古賀史健" },
+      { title: "挪威的森林", author: "村上春樹" },
+      { title: "人類大歷史", author: "哈拉瑞" }
+    ];
+
+    const searchInput = document.querySelector("#search");
+    const resultCount = document.querySelector("#result-count");
+    const bookList = document.querySelector("#book-list");
+
+    // 把一串書顯示在畫面上
+    function showBooks(list) {
+      bookList.innerHTML = "";                       // 先把舊的清掉
+      resultCount.textContent = "共 " + list.length + " 本";
+
+      if (list.length === 0) {
+        bookList.innerHTML = '<p class="empty">找不到符合的書 😢</p>';
+        return;
+      }
+
+      // forEach：陣列裡的每一本書，都執行一次大括號裡的程式
+      list.forEach(function (book) {
+        const card = document.createElement("div");
+        card.className = "book";
+
+        const title = document.createElement("h3");
+        title.textContent = book.title;             // book.title = 這本書的 title 欄位
+
+        const author = document.createElement("p");
+        author.textContent = book.author;
+
+        card.appendChild(title);
+        card.appendChild(author);
+        bookList.appendChild(card);
+      });
+    }
+
+    // 搜尋：filter 會留下「回傳 true」的那些書，變成一個新的陣列
+    searchInput.addEventListener("input", function () {
+      const keyword = searchInput.value.trim();
+      const result = books.filter(function (book) {
+        return book.title.includes(keyword);          // 書名裡有沒有這個關鍵字
+      });
+      showBooks(result);
+    });
+
+    // 網頁打開時，先顯示全部
+    showBooks(books);
+  </script>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

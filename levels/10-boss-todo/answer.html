@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第一章魔王：待辦清單</title>
+
+  <style>
+    body {
+      background-color: #f4f1ea;
+      color: #333333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 48px auto;
+      padding: 0 20px;
+    }
+
+    .add-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    #todo-input {
+      flex: 1;
+      font-size: 16px;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      background-color: #3d6b56;
+      color: white;
+      cursor: pointer;
+    }
+
+    #todo-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    #todo-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      background-color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #todo-list li button {
+      padding: 2px 10px;
+      font-size: 14px;
+      background-color: #e8e4dc;
+      color: #555;
+    }
+
+    #todo-list li.done span {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📝 今天要做的事</h1>
+
+  <div class="add-row">
+    <input id="todo-input" type="text" placeholder="輸入要做的事……">
+    <button id="add-btn">新增</button>
+  </div>
+
+  <ul id="todo-list"></ul>
+
+  <script>
+    const input = document.querySelector("#todo-input");
+    const addButton = document.querySelector("#add-btn");
+    const list = document.querySelector("#todo-list");
+
+    // 新增一個待辦事項的函式
+    function addTodo() {
+      const text = input.value.trim();   // trim() 會去掉前後的空白
+
+      // 空的就不新增，直接結束（return = 離開這個函式）
+      if (text === "") {
+        return;
+      }
+
+      // 做出 <li><span>文字</span><button>刪除</button></li>
+      const li = document.createElement("li");
+
+      const span = document.createElement("span");
+      span.textContent = text;           // 用 textContent，使用者打的字不會被當成 HTML
+
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "刪除";
+
+      li.appendChild(span);
+      li.appendChild(deleteButton);
+      list.appendChild(li);
+
+      // 點這一項 → 切換「完成」
+      li.addEventListener("click", function () {
+        li.classList.toggle("done");
+      });
+
+      // 點刪除 → 移除這一項
+      deleteButton.addEventListener("click", function (event) {
+        event.stopPropagation();         // 不要讓這次點擊也觸發上面 li 的「切換完成」
+        li.remove();
+      });
+
+      // 清空輸入框，並讓游標回到輸入框，方便繼續打字
+      input.value = "";
+      input.focus();
+    }
+
+    addButton.addEventListener("click", addTodo);
+
+    // 額外：在輸入框按 Enter 也能新增
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        addTodo();
+      }
+    });
+  </script>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

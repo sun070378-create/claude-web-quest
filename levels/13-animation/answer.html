@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 13 關：讓網頁動起來</title>
+
+  <style>
+    body {
+      background-color: #fdf8ec;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 64px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .logo {
+      display: inline-block;   /* transform 對 inline 元素沒有效果，所以要改成 inline-block */
+      font-size: 80px;
+      /* 播放 float 動畫：名字 時間 速度曲線 重複次數 方向 */
+      animation: float 1s ease-in-out infinite alternate;
+    }
+
+    .cta {
+      font-size: 18px;
+      padding: 12px 32px;
+      border: none;
+      border-radius: 999px;
+      background-color: #e8735a;
+      color: white;
+      cursor: pointer;
+      /* transition：當 transform 或背景色改變時，花 0.2 秒慢慢變過去 */
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    /* :hover = 滑鼠移到上面時 */
+    .cta:hover {
+      transform: scale(1.1);          /* 放大成 1.1 倍 */
+      background-color: #d65a40;
+    }
+
+    /* @keyframes：定義一段動畫的「開始」和「結束」長什麼樣子 */
+    @keyframes float {
+      from { transform: translateY(0); }       /* 開始：原位 */
+      to   { transform: translateY(-16px); }   /* 結束：往上 16px */
+    }
+
+    /* 有些人看到會動的畫面會頭暈，系統有開「減少動態效果」時就不播放 */
+    @media (prefers-reduced-motion: reduce) {
+      .logo {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">🎈</div>
+  <h1>歡迎來到我的網站</h1>
+  <p>把滑鼠移到按鈕上看看！</p>
+  <button class="cta">看看我的作品</button>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

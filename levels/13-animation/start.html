@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 13 關：讓網頁動起來</title>
+
+  <style>
+    body {
+      background-color: #fdf8ec;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 64px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .logo {
+      display: inline-block;
+      font-size: 80px;
+    }
+
+    .cta {
+      font-size: 18px;
+      padding: 12px 32px;
+      border: none;
+      border-radius: 999px;
+      background-color: #e8735a;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* ↓↓↓ 從這裡開始寫 ↓↓↓ */
+
+    /* 任務 1：幫 .cta 按鈕加上 transition，讓變化「慢慢發生」
+       提示：寫在上面的 .cta 裡，或在這裡再寫一次 .cta { transition: transform 0.2s; } */
+
+
+    /* 任務 2、3：滑鼠移到按鈕上（:hover）時，用 transform 把按鈕放大
+       提示：.cta:hover { transform: scale(1.1); } */
+
+
+    /* 任務 4：用 @keyframes 定義一個叫 float 的動畫（上下飄動）
+       提示：
+       @keyframes float {
+         from { transform: translateY(0); }
+         to   { transform: translateY(-16px); }
+       } */
+
+
+    /* 任務 5：讓 .logo 播放 float 動畫，而且一直重複
+       提示：.logo { animation: float 1s ease-in-out infinite alternate; } */
+
+
+    /* ↑↑↑ 寫到這裡為止 ↑↑↑ */
+  </style>
+</head>
+<body>
+
+  <div class="logo">🎈</div>
+  <h1>歡迎來到我的網站</h1>
+  <p>把滑鼠移到按鈕上看看！</p>
+  <button class="cta">看看我的作品</button>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>
