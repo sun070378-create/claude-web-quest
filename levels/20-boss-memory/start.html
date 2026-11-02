@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第三章魔王：記憶翻牌遊戲</title>
+
+  <style>
+    body {
+      background-color: #f1efe8;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 460px;
+      margin: 0 auto;
+      padding: 32px 20px;
+      text-align: center;
+    }
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    #restart {
+      padding: 6px 16px;
+      font: inherit;
+      border: 2px solid #5b7a6e;
+      border-radius: 8px;
+      background-color: white;
+      color: #5b7a6e;
+      cursor: pointer;
+    }
+
+    /* 牌桌：4 × 4 的格子 */
+    #board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    /* 每一張牌（還沒翻開：綠色背面，文字是透明的看不到） */
+    .card {
+      aspect-ratio: 1;               /* 寬高一樣 = 正方形 */
+      font-size: 36px;
+      border: none;
+      border-radius: 10px;
+      background-color: #5b7a6e;
+      color: transparent;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.04);
+    }
+
+    /* 翻開的牌：白色，看得到圖案 */
+    .card.flipped,
+    .card.matched {
+      background-color: white;
+      color: inherit;
+    }
+
+    /* 配對成功的牌：變淡 */
+    .card.matched {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    #message {
+      min-height: 1.7em;
+      margin-top: 16px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #5b7a6e;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🃏 記憶翻牌</h1>
+
+  <div class="info">
+    <span>步數：<strong id="moves">0</strong></span>
+    <button id="restart">重新開始</button>
+  </div>
+
+  <div id="board"></div>
+
+  <p id="message"></p>
+
+  <script>
+    // 8 種圖案，每種要放 2 張 → 一共 16 張牌
+    const symbols = ["🍎", "🍌", "🍇", "🍓", "🍒", "🍑", "🍍", "🥝"];
+
+    // 洗牌函式（已經幫你寫好）：給它一個陣列，它會回傳一個順序打亂的新陣列
+    function shuffle(array) {
+      const result = array.slice();
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = result[i];
+        result[i] = result[j];
+        result[j] = temp;
+      }
+      return result;
+    }
+
+    // 遊戲的狀態
+    let firstCard = null;     // 第一張翻開的牌
+    let secondCard = null;    // 第二張翻開的牌
+    let lock = false;         // true 的時候不能翻牌（等兩張不一樣的牌蓋回去時）
+    let moves = 0;            // 步數（每翻開兩張算一步）
+    let matchedPairs = 0;     // 已經配對成功幾組
+
+    const board = document.querySelector("#board");
+    const movesText = document.querySelector("#moves");
+    const messageText = document.querySelector("#message");
+    const restartButton = document.querySelector("#restart");
+
+    // ↓↓↓ 從這裡開始寫 ↓↓↓
+
+    // 任務 1：寫 createBoard()，做出 16 張牌放進 #board
+    //   - 把每種圖案變成兩張：symbols.concat(symbols)
+    //   - 洗牌：shuffle(…)
+    //   - 每張牌是一個 <button class="card">，
+    //     要設定 card.dataset.symbol = 圖案（裁判靠這個認牌），文字也是圖案
+    //   - 網頁打開時呼叫一次
+
+
+    // 任務 2：點一張牌，就幫它加上 "flipped" class（翻開）
+    //   已經翻開的、已經配對的、或 lock 是 true 時，點了都沒反應
+
+
+    // 任務 3：翻開第二張時，步數 +1，並顯示在 #moves
+    //   如果兩張的 dataset.symbol 一樣 → 兩張都加上 "matched"
+
+
+    // 任務 4：如果兩張不一樣 → 先 lock，等 0.8 秒後把兩張的 "flipped" 拿掉，再解除 lock
+    //   setTimeout(function () { … }, 800);
+
+
+    // 任務 5：8 組都配對成功時，在 #message 顯示「恭喜過關！」
+
+
+    // 任務 6：按「重新開始」時，所有狀態歸零、重新洗牌、清空訊息
+    //   提示：在 createBoard() 的開頭把狀態都歸零，按鈕就只要呼叫 createBoard()
+
+
+    // ↑↑↑ 寫到這裡為止 ↑↑↑
+  </script>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

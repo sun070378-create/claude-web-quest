@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 17 關：今天吃什麼？</title>
+
+  <style>
+    body {
+      background-color: #fff6ec;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 48px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    #result {
+      margin: 24px 0;
+      font-size: 40px;
+      font-weight: bold;
+      color: #d0602f;
+      min-height: 1.5em;
+    }
+
+    button {
+      padding: 10px 24px;
+      font: inherit;
+      border: none;
+      border-radius: 8px;
+      background-color: #d0602f;
+      color: white;
+      cursor: pointer;
+    }
+
+    #pick-btn {
+      font-size: 20px;
+      padding: 12px 36px;
+    }
+
+    .add-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 32px;
+    }
+
+    #new-food {
+      flex: 1;
+      padding: 8px 12px;
+      font: inherit;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    #food-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+    }
+
+    #food-list li {
+      padding: 2px 12px;
+      background-color: white;
+      border: 1px solid #f0d5c2;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🍜 今天吃什麼？</h1>
+  <p>選擇困難嗎？交給程式幫你決定！</p>
+
+  <p id="result">？</p>
+  <button id="pick-btn">幫我選！</button>
+
+  <div class="add-row">
+    <input id="new-food" type="text" placeholder="加入新的選項……">
+    <button id="add-btn">加入</button>
+  </div>
+
+  <ul id="food-list"></ul>
+
+  <script>
+    const foods = ["牛肉麵", "滷肉飯", "水餃", "咖哩飯", "便當", "麥當勞"];
+
+    const result = document.querySelector("#result");
+    const pickButton = document.querySelector("#pick-btn");
+    const foodList = document.querySelector("#food-list");
+    const newFoodInput = document.querySelector("#new-food");
+    const addButton = document.querySelector("#add-btn");
+
+    // 隨機回傳陣列裡的一個
+    // 例如陣列有 6 個：Math.random() * 6 會是 0～5.999…，捨去小數後就是 0～5 其中一個索引
+    function randomItem(array) {
+      const index = Math.floor(Math.random() * array.length);
+      return array[index];
+    }
+
+    // 把所有選項顯示出來
+    function showFoods() {
+      foodList.innerHTML = "";
+      foods.forEach(function (food) {
+        const li = document.createElement("li");
+        li.textContent = food;
+        foodList.appendChild(li);
+      });
+    }
+
+    pickButton.addEventListener("click", function () {
+      result.textContent = randomItem(foods);
+    });
+
+    addButton.addEventListener("click", function () {
+      const food = newFoodInput.value.trim();
+      if (food === "") {
+        return;
+      }
+      foods.push(food);          // push：加到陣列的最後面（const 陣列裡面的東西還是可以改）
+      showFoods();
+      newFoodInput.value = "";
+    });
+
+    showFoods();
+  </script>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

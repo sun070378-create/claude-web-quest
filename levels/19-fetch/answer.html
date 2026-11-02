@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 19 關：天氣小幫手</title>
+
+  <style>
+    body {
+      background: linear-gradient(#cfe6f5, #f3f8fb) fixed;
+      color: #2b3a44;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 48px 20px;
+      text-align: center;
+    }
+
+    #city {
+      padding: 8px 12px;
+      font: inherit;
+      border: 1px solid #a9c4d6;
+      border-radius: 8px;
+      background-color: white;
+    }
+
+    .weather {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .box {
+      flex: 1;
+      padding: 16px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+    }
+
+    .label {
+      display: block;
+      font-size: 0.9rem;
+      color: #6b7f8c;
+    }
+
+    #temperature,
+    #wind {
+      display: block;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    #status {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: #6b7f8c;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌤️ 天氣小幫手</h1>
+
+  <select id="city">
+    <option value="25.03,121.56">台北</option>
+    <option value="24.15,120.67">台中</option>
+    <option value="22.63,120.30">高雄</option>
+    <option value="23.98,121.60">花蓮</option>
+  </select>
+
+  <div class="weather">
+    <div class="box">
+      <span class="label">現在溫度</span>
+      <span id="temperature">--</span>
+    </div>
+    <div class="box">
+      <span class="label">風速</span>
+      <span id="wind">--</span>
+    </div>
+  </div>
+
+  <p id="status"></p>
+
+  <script>
+    const citySelect = document.querySelector("#city");
+    const temperatureText = document.querySelector("#temperature");
+    const windText = document.querySelector("#wind");
+    const statusText = document.querySelector("#status");
+
+    // async 函式：裡面可以用 await「等」一件需要時間的事做完（例如網路）
+    async function loadWeather(lat, lon) {
+      const url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat +
+                  "&longitude=" + lon + "&current=temperature_2m,wind_speed_10m";
+
+      statusText.textContent = "讀取中……";
+
+      // try：試著做；如果中間出錯（例如沒網路），就跳到 catch
+      try {
+        const response = await fetch(url);       // 向天氣服務送出請求，等它回應
+        const data = await response.json();      // 把回應的內容變成物件
+
+        temperatureText.textContent = data.current.temperature_2m + "°C";
+        windText.textContent = data.current.wind_speed_10m + " km/h";
+        statusText.textContent = "已更新";
+      } catch (error) {
+        statusText.textContent = "讀取失敗，請檢查網路連線 😢";
+      }
+    }
+
+    // 讀取目前選的城市
+    function loadSelectedCity() {
+      const parts = citySelect.value.split(",");   // "25.03,121.56" → ["25.03", "121.56"]
+      loadWeather(parts[0], parts[1]);
+    }
+
+    // change 事件：下拉選單換了選項時觸發
+    citySelect.addEventListener("change", loadSelectedCity);
+
+    // 網頁打開時先讀一次
+    loadSelectedCity();
+  </script>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

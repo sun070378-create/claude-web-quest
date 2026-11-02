@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 18 關：番茄鐘</title>
+
+  <style>
+    body {
+      background-color: #fbefed;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 48px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    #time {
+      margin: 16px 0 24px;
+      font-size: 88px;
+      font-weight: bold;
+      font-variant-numeric: tabular-nums;   /* 每個數字一樣寬，跳動時不會左右晃 */
+      color: #c8483a;
+    }
+
+    button {
+      min-width: 88px;
+      margin: 4px;
+      padding: 10px 18px;
+      font: inherit;
+      border: 2px solid #c8483a;
+      border-radius: 8px;
+      background-color: white;
+      color: #c8483a;
+      cursor: pointer;
+    }
+
+    #start-btn {
+      background-color: #c8483a;
+      color: white;
+    }
+
+    #status {
+      margin-top: 16px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🍅 番茄鐘</h1>
+  <p>專心 25 分鐘，休息 5 分鐘。</p>
+
+  <div id="time">25:00</div>
+
+  <button id="start-btn">開始</button>
+  <button id="pause-btn">暫停</button>
+  <button id="reset-btn">重來</button>
+
+  <p id="status"></p>
+
+  <script>
+    const FOCUS_SECONDS = 25 * 60;     // 25 分鐘 = 1500 秒
+
+    let remaining = FOCUS_SECONDS;      // 還剩幾秒
+    let timerId = null;                 // 計時器的編號，暫停時要用到；null 代表「沒有在跑」
+
+    const timeText = document.querySelector("#time");
+    const startButton = document.querySelector("#start-btn");
+    const pauseButton = document.querySelector("#pause-btn");
+    const resetButton = document.querySelector("#reset-btn");
+    const statusText = document.querySelector("#status");
+
+    // ↓↓↓ 從這裡開始寫 ↓↓↓
+
+    // 任務 1：寫一個函式 formatTime(seconds)，把秒數變成「分:秒」的格式
+    //   例如 1500 → "25:00"、65 → "01:05"
+    //   分 = Math.floor(seconds / 60)
+    //   秒 = seconds % 60（% 是「除完的餘數」）
+    //   補零：String(5).padStart(2, "0") → "05"
+
+
+    // 任務 2：按「開始」時，每 1 秒讓 remaining 減 1，並更新畫面
+    //   timerId = setInterval(function () { … }, 1000);
+
+
+    // 任務 3：按「暫停」時，停止計時
+    //   clearInterval(timerId); timerId = null;
+
+
+    // 任務 4：按「重來」時，停止計時，remaining 回到 FOCUS_SECONDS，更新畫面
+
+
+    // 任務 5：已經在跑的時候再按「開始」，不能變成兩倍速！
+    //   提示：如果 timerId !== null，代表已經在跑了，就直接 return
+
+
+    // 額外：remaining 變成 0 時，停止計時，在 #status 顯示「時間到！休息一下吧」
+
+
+    // ↑↑↑ 寫到這裡為止 ↑↑↑
+  </script>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

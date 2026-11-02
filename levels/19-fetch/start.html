@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 19 關：天氣小幫手</title>
+
+  <style>
+    body {
+      background: linear-gradient(#cfe6f5, #f3f8fb) fixed;
+      color: #2b3a44;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 48px 20px;
+      text-align: center;
+    }
+
+    #city {
+      padding: 8px 12px;
+      font: inherit;
+      border: 1px solid #a9c4d6;
+      border-radius: 8px;
+      background-color: white;
+    }
+
+    .weather {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .box {
+      flex: 1;
+      padding: 16px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+    }
+
+    .label {
+      display: block;
+      font-size: 0.9rem;
+      color: #6b7f8c;
+    }
+
+    #temperature,
+    #wind {
+      display: block;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    #status {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: #6b7f8c;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌤️ 天氣小幫手</h1>
+
+  <!-- 每個選項的 value 是「緯度,經度」 -->
+  <select id="city">
+    <option value="25.03,121.56">台北</option>
+    <option value="24.15,120.67">台中</option>
+    <option value="22.63,120.30">高雄</option>
+    <option value="23.98,121.60">花蓮</option>
+  </select>
+
+  <div class="weather">
+    <div class="box">
+      <span class="label">現在溫度</span>
+      <span id="temperature">--</span>
+    </div>
+    <div class="box">
+      <span class="label">風速</span>
+      <span id="wind">--</span>
+    </div>
+  </div>
+
+  <p id="status"></p>
+
+  <script>
+    const citySelect = document.querySelector("#city");
+    const temperatureText = document.querySelector("#temperature");
+    const windText = document.querySelector("#wind");
+    const statusText = document.querySelector("#status");
+
+    // ↓↓↓ 從這裡開始寫 ↓↓↓
+
+    // 任務 1：寫一個 async 函式 loadWeather(lat, lon)，用 fetch 向天氣服務要資料
+    //   網址（Open-Meteo，免費、不用註冊）：
+    //   const url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat +
+    //               "&longitude=" + lon + "&current=temperature_2m,wind_speed_10m";
+    //   const response = await fetch(url);      // 送出請求，等回應
+    //   const data = await response.json();     // 把回應變成 JavaScript 物件
+
+
+    // 任務 2：把溫度和風速顯示出來
+    //   溫度：data.current.temperature_2m（攝氏）
+    //   風速：data.current.wind_speed_10m（公里/小時）
+    //   開始讀取時 statusText 顯示「讀取中……」，成功後顯示「已更新」
+
+
+    // 任務 3：網頁一打開，就讀取目前選擇的城市
+    //   citySelect.value 會是 "25.03,121.56"，用 .split(",") 拆成 ["25.03", "121.56"]
+
+
+    // 任務 4：切換城市時（change 事件），重新讀取那個城市的天氣
+
+
+    // 任務 5：網路出問題時，在 statusText 顯示「讀取失敗」
+    //   提示：用 try { … } catch (error) { … } 包住 fetch 的部分
+
+
+    // ↑↑↑ 寫到這裡為止 ↑↑↑
+  </script>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

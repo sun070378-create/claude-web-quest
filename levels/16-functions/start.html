@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 16 關：溫度換算器</title>
+
+  <style>
+    body {
+      background-color: #eef4f7;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 48px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    #celsius {
+      width: 140px;
+      padding: 10px 12px;
+      font: inherit;
+      font-size: 20px;
+      border: 1px solid #bbb;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font: inherit;
+      border: none;
+      border-radius: 8px;
+      background-color: #2a7ab0;
+      color: white;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 24px;
+      font-size: 32px;
+      font-weight: bold;
+      color: #2a7ab0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌡️ 溫度換算器</h1>
+  <p>輸入攝氏溫度，換算成華氏溫度。</p>
+
+  <div class="row">
+    <input id="celsius" type="text" placeholder="攝氏 °C">
+    <button id="convert-btn">換算</button>
+  </div>
+
+  <p id="result">—</p>
+
+  <script>
+    // ↓↓↓ 從這裡開始寫 ↓↓↓
+
+    // 任務 1：寫一個函式 celsiusToFahrenheit(c)，把攝氏換成華氏並「回傳」
+    //   公式：華氏 = 攝氏 × 9 ÷ 5 + 32
+    //   function celsiusToFahrenheit(c) {
+    //     return c * 9 / 5 + 32;
+    //   }
+
+
+    // 任務 2：再寫一個反過來的函式 fahrenheitToCelsius(f)
+    //   公式：攝氏 = (華氏 - 32) × 5 ÷ 9
+
+
+    // 任務 3：按「換算」時，讀取輸入框的數字，用 celsiusToFahrenheit 算出結果，顯示在 #result
+    //   提示：輸入框拿到的是文字，要用 Number(…) 變成數字
+
+
+    // 任務 4：如果輸入的不是數字（或是空的），在 #result 顯示「請輸入數字」
+    //   提示：input.value.trim() === "" 或 Number.isNaN(數字) 代表不是數字
+
+
+    // 任務 5：結果只顯示到小數點後一位，例如 36.6°C → 97.9°F
+    //   提示：數字.toFixed(1)
+
+
+    // ↑↑↑ 寫到這裡為止 ↑↑↑
+  </script>
+
+  <!-- 以下是闖關檢查器，請不要刪除 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

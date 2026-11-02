@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 18 關：番茄鐘</title>
+
+  <style>
+    body {
+      background-color: #fbefed;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 48px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    #time {
+      margin: 16px 0 24px;
+      font-size: 88px;
+      font-weight: bold;
+      font-variant-numeric: tabular-nums;
+      color: #c8483a;
+    }
+
+    button {
+      min-width: 88px;
+      margin: 4px;
+      padding: 10px 18px;
+      font: inherit;
+      border: 2px solid #c8483a;
+      border-radius: 8px;
+      background-color: white;
+      color: #c8483a;
+      cursor: pointer;
+    }
+
+    #start-btn {
+      background-color: #c8483a;
+      color: white;
+    }
+
+    #status {
+      margin-top: 16px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🍅 番茄鐘</h1>
+  <p>專心 25 分鐘，休息 5 分鐘。</p>
+
+  <div id="time">25:00</div>
+
+  <button id="start-btn">開始</button>
+  <button id="pause-btn">暫停</button>
+  <button id="reset-btn">重來</button>
+
+  <p id="status"></p>
+
+  <script>
+    const FOCUS_SECONDS = 25 * 60;
+
+    let remaining = FOCUS_SECONDS;
+    let timerId = null;
+
+    const timeText = document.querySelector("#time");
+    const startButton = document.querySelector("#start-btn");
+    const pauseButton = document.querySelector("#pause-btn");
+    const resetButton = document.querySelector("#reset-btn");
+    const statusText = document.querySelector("#status");
+
+    // 秒數 → "分:秒"
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const secs = seconds % 60;                      // % 取餘數：65 % 60 = 5
+      return String(minutes).padStart(2, "0") + ":" + String(secs).padStart(2, "0");
+    }
+
+    function updateScreen() {
+      timeText.textContent = formatTime(remaining);
+    }
+
+    function stopTimer() {
+      clearInterval(timerId);   // 叫計時器停下來
+      timerId = null;
+    }
+
+    startButton.addEventListener("click", function () {
+      if (timerId !== null) {
+        return;                 // 已經在跑了，不要再開一個計時器
+      }
+      statusText.textContent = "";
+
+      // setInterval：每隔 1000 毫秒（1 秒）執行一次大括號裡的程式，會回傳一個編號
+      timerId = setInterval(function () {
+        remaining = remaining - 1;
+        updateScreen();
+
+        if (remaining <= 0) {
+          stopTimer();
+          statusText.textContent = "時間到！休息一下吧 ☕";
+        }
+      }, 1000);
+    });
+
+    pauseButton.addEventListener("click", function () {
+      stopTimer();
+    });
+
+    resetButton.addEventListener("click", function () {
+      stopTimer();
+      remaining = FOCUS_SECONDS;
+      statusText.textContent = "";
+      updateScreen();
+    });
+
+    updateScreen();
+  </script>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第三章魔王：記憶翻牌遊戲</title>
+
+  <style>
+    body {
+      background-color: #f1efe8;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 460px;
+      margin: 0 auto;
+      padding: 32px 20px;
+      text-align: center;
+    }
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    #restart {
+      padding: 6px 16px;
+      font: inherit;
+      border: 2px solid #5b7a6e;
+      border-radius: 8px;
+      background-color: white;
+      color: #5b7a6e;
+      cursor: pointer;
+    }
+
+    #board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .card {
+      aspect-ratio: 1;
+      font-size: 36px;
+      border: none;
+      border-radius: 10px;
+      background-color: #5b7a6e;
+      color: transparent;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.04);
+    }
+
+    .card.flipped,
+    .card.matched {
+      background-color: white;
+      color: inherit;
+    }
+
+    .card.matched {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    #message {
+      min-height: 1.7em;
+      margin-top: 16px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #5b7a6e;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🃏 記憶翻牌</h1>
+
+  <div class="info">
+    <span>步數：<strong id="moves">0</strong></span>
+    <button id="restart">重新開始</button>
+  </div>
+
+  <div id="board"></div>
+
+  <p id="message"></p>
+
+  <script>
+    const symbols = ["🍎", "🍌", "🍇", "🍓", "🍒", "🍑", "🍍", "🥝"];
+
+    function shuffle(array) {
+      const result = array.slice();
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = result[i];
+        result[i] = result[j];
+        result[j] = temp;
+      }
+      return result;
+    }
+
+    let firstCard = null;
+    let secondCard = null;
+    let lock = false;
+    let moves = 0;
+    let matchedPairs = 0;
+
+    const board = document.querySelector("#board");
+    const movesText = document.querySelector("#moves");
+    const messageText = document.querySelector("#message");
+    const restartButton = document.querySelector("#restart");
+
+    // 開新的一局：狀態歸零、洗牌、做出 16 張牌
+    function createBoard() {
+      firstCard = null;
+      secondCard = null;
+      lock = false;
+      moves = 0;
+      matchedPairs = 0;
+      movesText.textContent = moves;
+      messageText.textContent = "";
+      board.innerHTML = "";
+
+      const deck = shuffle(symbols.concat(symbols));   // concat：把兩個陣列接起來 → 16 個
+
+      deck.forEach(function (symbol) {
+        const card = document.createElement("button");
+        card.className = "card";
+        card.dataset.symbol = symbol;     // 寫進 data-symbol 屬性，之後用來比對
+        card.textContent = symbol;
+        card.addEventListener("click", function () {
+          flipCard(card);
+        });
+        board.appendChild(card);
+      });
+    }
+
+    function flipCard(card) {
+      // 這些情況點了都沒反應
+      if (lock || card.classList.contains("flipped") || card.classList.contains("matched")) {
+        return;
+      }
+
+      card.classList.add("flipped");
+
+      // 這是第一張：記住它，等第二張
+      if (firstCard === null) {
+        firstCard = card;
+        return;
+      }
+
+      // 這是第二張
+      secondCard = card;
+      moves = moves + 1;
+      movesText.textContent = moves;
+
+      if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
+        // 一樣：配對成功
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        matchedPairs = matchedPairs + 1;
+        firstCard = null;
+        secondCard = null;
+
+        if (matchedPairs === symbols.length) {
+          messageText.textContent = "🎉 恭喜過關！你用了 " + moves + " 步";
+        }
+      } else {
+        // 不一樣：鎖住，0.8 秒後蓋回去
+        lock = true;
+        setTimeout(function () {
+          firstCard.classList.remove("flipped");
+          secondCard.classList.remove("flipped");
+          firstCard = null;
+          secondCard = null;
+          lock = false;
+        }, 800);
+      }
+    }
+
+    restartButton.addEventListener("click", createBoard);
+
+    createBoard();
+  </script>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

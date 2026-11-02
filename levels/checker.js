@@ -30,17 +30,47 @@
     }
   }
 
-  /* 執行每一個檢查條件，出錯就當作「還沒完成」 */
-  function runChecks(checks) {
-    return checks.map(function (check) {
-      var ok = false;
-      try {
-        ok = Boolean(check.test());
-      } catch (e) {
-        ok = false;
-      }
-      return { text: check.text, hint: check.hint, ok: ok };
+  /* 每個檢查最多等幾毫秒（給需要「等一下」的檢查用，例如計時器、網路） */
+  var ASYNC_TIMEOUT = 10000;
+
+  /* 一個一個執行檢查條件，出錯就當作「還沒完成」。
+     有些檢查需要等待（會回傳 Promise），所以要等前一個做完才做下一個，
+     每做完一個就呼叫 onUpdate 更新面板。ok 是 null 代表「還在檢查」。 */
+  function runChecks(checks, onUpdate) {
+    var results = checks.map(function (check) {
+      return { text: check.text, hint: check.hint, ok: null };
     });
+
+    function runOne(index) {
+      if (index >= checks.length) {
+        onUpdate(results, true);
+        return;
+      }
+      var finish = function (ok) {
+        results[index].ok = Boolean(ok);
+        onUpdate(results, false);
+        runOne(index + 1);
+      };
+      var value;
+      try {
+        value = checks[index].test();
+      } catch (e) {
+        finish(false);
+        return;
+      }
+      if (value && typeof value.then === "function") {
+        var timer = setTimeout(function () { finish(false); finish = function () {}; }, ASYNC_TIMEOUT);
+        value.then(
+          function (ok) { clearTimeout(timer); finish(ok); },
+          function () { clearTimeout(timer); finish(false); }
+        );
+      } else {
+        finish(value);
+      }
+    }
+
+    onUpdate(results, false);
+    runOne(0);
   }
 
   function escapeHtml(text) {
@@ -78,7 +108,7 @@
     ".collapsed .head { border-bottom: 0; border-radius: 10px; }"
   ].join("\n");
 
-  function render(config, results) {
+  function render(config, results, finished) {
     var passed = results.filter(function (r) { return r.ok; }).length;
     var total = results.length;
     var allDone = passed === total;
@@ -104,6 +134,9 @@
     var root = host.shadowRoot;
 
     var items = results.map(function (r) {
+      if (r.ok === null) {
+        return "<li>⏳ " + escapeHtml(r.text) + "<span class='hint'>檢查中，請稍等……</span></li>";
+      }
       return "<li class='" + (r.ok ? "done" : "") + "'>" +
         (r.ok ? "✅ " : "⬜ ") + escapeHtml(r.text) +
         (!r.ok && r.hint ? "<span class='hint'>💡 " + escapeHtml(r.hint) + "</span>" : "") +
@@ -138,15 +171,24 @@
       root.querySelector(".panel").classList.toggle("collapsed");
     });
     root.querySelector(".recheck").addEventListener("click", function () {
-      start(config);
+      if (!running) start(config);
     });
 
-    /* 給自動測試用的結果 */
-    window.__levelResult = { passed: passed, total: total, results: results };
+    /* 全部檢查完，才把結果交給自動測試 */
+    if (finished) {
+      window.__levelResult = { passed: passed, total: total, results: results };
+    }
   }
 
+  var running = false;
+
   function start(config) {
-    render(config, runChecks(config.checks));
+    running = true;
+    window.__levelResult = undefined;
+    runChecks(config.checks, function (results, finished) {
+      if (finished) running = false;
+      render(config, results, finished);
+    });
   }
 
   window.Level = {
@@ -161,6 +203,23 @@
 
   /* ---------- 給各關 check.js 使用的小工具 ---------- */
   window.LevelHelpers = {
+    /* 等待幾毫秒 */
+    wait: function (ms) {
+      return new Promise(function (resolve) { setTimeout(resolve, ms); });
+    },
+    /* 每隔一下檢查 condition()，變成 true 就成功；超過 timeout 毫秒就失敗 */
+    waitFor: function (condition, timeout) {
+      var deadline = Date.now() + (timeout || 5000);
+      return new Promise(function (resolve) {
+        (function poll() {
+          var ok = false;
+          try { ok = condition(); } catch (e) { ok = false; }
+          if (ok) resolve(true);
+          else if (Date.now() > deadline) resolve(false);
+          else setTimeout(poll, 100);
+        })();
+      });
+    },
     /* 取得元素的計算後樣式 */
     css: function (el, prop) {
       return getComputedStyle(el).getPropertyValue(prop).trim();

@@ -30,7 +30,7 @@
   Level.define({
     level: 15,
     title: "第二章魔王：我的書櫃",
-    next: null,
+    next: "../16-functions/start.html",
     checks: [
       {
         text: "書櫃裡至少有 6 本書（加上你自己的書）",
