@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 21 關：抓蟲大作戰</title>
+
+  <script src="catch-errors.js"></script>
+
+  <style>
+    body {
+      background-color: #f5f2ea;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 48px auto;
+      padding: 0 20px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px dashed #d6cfbf;
+    }
+
+    .item input {
+      width: 64px;
+      padding: 4px 8px;
+      font: inherit;
+    }
+
+    select,
+    button {
+      padding: 6px 12px;
+      font: inherit;
+    }
+
+    button {
+      margin-top: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #7a5c3e;
+      color: white;
+      cursor: pointer;
+    }
+
+    #total {
+      margin-top: 16px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    #note {
+      color: #7a5c3e;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>☕ 咖啡小舖購物車</h1>
+  <p>這個購物車壞掉了！裡面藏了 <strong>4 隻蟲（bug）</strong>，請你把它們找出來修好。</p>
+
+  <div class="item" data-price="450">
+    <span>咖啡豆（450 元）</span>
+    <input type="number" min="0" value="0" aria-label="咖啡豆數量">
+  </div>
+  <div class="item" data-price="120">
+    <span>濾紙（120 元）</span>
+    <input type="number" min="0" value="0" aria-label="濾紙數量">
+  </div>
+  <div class="item" data-price="380">
+    <span>馬克杯（380 元）</span>
+    <input type="number" min="0" value="0" aria-label="馬克杯數量">
+  </div>
+
+  <p>
+    <label for="shipping">運送方式：</label>
+    <select id="shipping">
+      <option value="0">門市自取（0 元）</option>
+      <option value="60">超商取貨（60 元）</option>
+      <option value="100">宅配（100 元）</option>
+    </select>
+  </p>
+
+  <button id="calc-btn">計算總金額</button>
+
+  <p id="total"></p>
+  <p id="note"></p>
+
+  <script>
+    // 規則：商品小計滿 1000 元打九折（運費不打折），再加上運費
+
+    const items = document.querySelectorAll(".item");
+    const shippingSelect = document.querySelector("#shipping");
+    const calcButton = document.querySelector("#calc-btn");
+    // 🐛 蟲 1：id 拼錯了（#totl → #total）
+    //    主控台錯誤：Cannot set properties of null —— 代表 querySelector 找不到東西，得到 null
+    const totalText = document.querySelector("#total");
+    const noteText = document.querySelector("#note");
+
+    function calculate() {
+      let subtotal = 0;
+      items.forEach(function (item) {
+        const price = Number(item.dataset.price);
+        const quantity = Number(item.querySelector("input").value);
+        subtotal = subtotal + price * quantity;
+      });
+
+      // 🐛 蟲 2：比較符號寫反了（<= 1000 → >= 1000），變成「不滿千才打折」
+      let discount = 0;
+      if (subtotal >= 1000) {
+        discount = subtotal * 0.1;
+        noteText.textContent = "🎉 滿千打九折，省了 " + discount + " 元";
+      } else {
+        noteText.textContent = "";
+      }
+
+      // 🐛 蟲 3：select 的 value 是文字，"1152" + "60" 會變成 "115260"，要用 Number() 變成數字
+      const shipping = Number(shippingSelect.value);
+      const total = subtotal - discount + shipping;
+
+      totalText.textContent = "總金額：" + total + " 元";
+    }
+
+    // 🐛 蟲 4：事件名稱拼錯（"clik" → "click"），不會有任何錯誤訊息，只是按了沒反應
+    calcButton.addEventListener("click", calculate);
+
+    calculate();
+  </script>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

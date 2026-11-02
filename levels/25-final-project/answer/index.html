@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../catch-errors.js"></script>
+  <title>Jason 的作品集</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 頁首：名字、導覽列、夜間模式按鈕 -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#top">Jason</a>
+      <nav aria-label="主選單">
+        <a href="#about">關於我</a>
+        <a href="#works">作品</a>
+        <a href="#contact">聯絡</a>
+      </nav>
+      <button id="theme-toggle" type="button" aria-label="切換夜間模式">🌙</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- 開場 -->
+    <section class="hero container">
+      <h1>你好，我是 Jason 👋</h1>
+      <p>喜歡寫字、拍照、畫地圖。這裡收藏了我的作品，也記錄我學做網頁的過程。</p>
+    </section>
+
+    <!-- 關於我 -->
+    <section id="about" class="container">
+      <h2>關於我</h2>
+      <p>平常喜歡在安靜的地方讀書、散步，把生活中看到的小事記錄下來。從第一個「哈囉」網頁開始，一關一關學到現在，這個作品集就是我的期末專題。</p>
+    </section>
+
+    <!-- 作品：卡片由 script.js 依照資料產生，上面的按鈕可以篩選類別 -->
+    <section id="works" class="container">
+      <h2>我的創作</h2>
+      <div class="filters" role="group" aria-label="篩選作品類別">
+        <button type="button" class="filter is-active" data-category="全部">全部</button>
+        <button type="button" class="filter" data-category="攝影">攝影</button>
+        <button type="button" class="filter" data-category="寫作">寫作</button>
+        <button type="button" class="filter" data-category="繪圖">繪圖</button>
+      </div>
+      <div id="work-list" class="work-list"></div>
+    </section>
+
+    <!-- 聯絡表單 -->
+    <section id="contact" class="container">
+      <h2>聯絡我</h2>
+      <form id="contact-form">
+        <label for="name">你的名字</label>
+        <input id="name" type="text" required>
+
+        <label for="message">想說的話</label>
+        <textarea id="message" required></textarea>
+
+        <button type="submit">送出</button>
+      </form>
+      <p id="form-result" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2026 Jason・用 HTML、CSS、JavaScript 親手打造</div>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <!-- 闖關檢查器（參考解答放在 answer/ 資料夾裡，所以路徑多了一層 ../） -->
+  <script src="../../checker.js"></script>
+  <script src="../check.js"></script>
+</body>
+</html>

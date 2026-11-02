@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- lang：螢幕報讀軟體會用中文的發音來唸，瀏覽器也會選對字體 -->
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 23 關：每個人都能用</title>
+
+  <style>
+    body {
+      background-color: white;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 8px;
+      padding: 10px 12px;
+      font: inherit;
+      border: 1px solid #999;
+      border-radius: 8px;
+    }
+
+    /* 文字和背景的對比要夠（至少 4.5 : 1），視力不好的人、在大太陽下看手機的人才看得清楚 */
+    .hint {
+      font-size: 0.9rem;
+      color: #666666;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 28px;
+      font: inherit;
+      border: none;
+      border-radius: 8px;
+      background-color: #3d6b56;
+      color: white;
+      cursor: pointer;
+    }
+
+    #result {
+      color: #3d6b56;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- alt：描述這張圖在畫什麼。如果圖片只是裝飾、沒有意義，可以寫 alt=""（空的），報讀軟體就會跳過 -->
+  <img src="../06-responsive/banner.svg" alt="藍天下的綠色山丘">
+
+  <h1>📚 社區讀書會報名</h1>
+  <p class="hint">每月第一個星期六下午，在社區圖書館二樓。名額 20 人，額滿為止。</p>
+
+  <!-- label 的 for 對應 input 的 id：點文字就能選到輸入框，報讀軟體也會唸出「你的名字，輸入框」 -->
+  <label for="name">你的名字</label>
+  <input id="name" type="text" placeholder="例如：王小明">
+
+  <label for="email">Email</label>
+  <input id="email" type="email" placeholder="you@example.com">
+
+  <!-- 真正的 button：可以用 Tab 選到、按 Enter 或空白鍵觸發，報讀軟體會唸出「報名，按鈕」 -->
+  <button class="btn" onclick="signUp()">報名</button>
+
+  <!-- aria-live：內容改變時，報讀軟體會自動唸出來（看不到畫面的人才知道報名成功了） -->
+  <p id="result" aria-live="polite"></p>
+
+  <script>
+    function signUp() {
+      const name = document.querySelector("#name").value.trim();
+      document.querySelector("#result").textContent =
+        name === "" ? "請填寫名字" : name + "，報名成功！我們到時見 📖";
+    }
+  </script>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

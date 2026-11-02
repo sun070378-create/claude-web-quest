@@ -40,7 +40,7 @@
   Level.define({
     level: 20,
     title: "第三章魔王：記憶翻牌遊戲",
-    next: null,
+    next: "../21-debug/start.html",
     checks: [
       {
         text: "牌桌上有 16 張牌，每種圖案剛好 2 張",
