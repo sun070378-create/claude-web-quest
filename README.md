@@ -11,8 +11,8 @@
 
 設定好之後，網址是：
 
-- 個人網頁：<https://sun070378-create.github.io/test-place-for-claude/>
-- 闖關地圖：<https://sun070378-create.github.io/test-place-for-claude/levels/>
+- 個人網頁：<https://sun070378-create.github.io/claude-web-quest/>
+- 闖關地圖：<https://sun070378-create.github.io/claude-web-quest/levels/>
 
 **第一次設定（只要做一次）：**
 

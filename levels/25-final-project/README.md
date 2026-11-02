@@ -51,7 +51,7 @@
 2. 按 **Add file** → **Upload files**，把你的 `start.html`、`style.css`、`script.js` 拖進去
 3. Commit 到新分支 → 開 Pull Request → 合併
 4. 等 1～2 分鐘，就能在這裡看到你的作品：
-   `https://sun070378-create.github.io/test-place-for-claude/levels/25-final-project/start.html`
+   `https://sun070378-create.github.io/claude-web-quest/levels/25-final-project/start.html`
 
 把網址傳給朋友看吧！🎉
 
