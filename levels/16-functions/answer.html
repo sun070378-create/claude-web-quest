@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 16 關：溫度換算器</title>
+
+  <style>
+    body {
+      background-color: #eef4f7;
+      color: #333;
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 48px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    #celsius {
+      width: 140px;
+      padding: 10px 12px;
+      font: inherit;
+      font-size: 20px;
+      border: 1px solid #bbb;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font: inherit;
+      border: none;
+      border-radius: 8px;
+      background-color: #2a7ab0;
+      color: white;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 24px;
+      font-size: 32px;
+      font-weight: bold;
+      color: #2a7ab0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌡️ 溫度換算器</h1>
+  <p>輸入攝氏溫度，換算成華氏溫度。</p>
+
+  <div class="row">
+    <input id="celsius" type="text" placeholder="攝氏 °C">
+    <button id="convert-btn">換算</button>
+  </div>
+
+  <p id="result">—</p>
+
+  <script>
+    // 函式：放進一個值（參數 c），算完之後用 return 交回一個值
+    function celsiusToFahrenheit(c) {
+      return c * 9 / 5 + 32;
+    }
+
+    function fahrenheitToCelsius(f) {
+      return (f - 32) * 5 / 9;
+    }
+
+    const input = document.querySelector("#celsius");
+    const button = document.querySelector("#convert-btn");
+    const result = document.querySelector("#result");
+
+    button.addEventListener("click", function () {
+      const text = input.value.trim();
+      const celsius = Number(text);          // 把文字變成數字，變不成就會得到 NaN（Not a Number）
+
+      if (text === "" || Number.isNaN(celsius)) {
+        result.textContent = "請輸入數字";
+        return;
+      }
+
+      const fahrenheit = celsiusToFahrenheit(celsius);   // 呼叫函式，拿到回傳的值
+      result.textContent = fahrenheit.toFixed(1) + " °F"; // toFixed(1)：留到小數點後一位
+    });
+  </script>
+
+  <!-- 闖關檢查器 -->
+  <script src="../checker.js"></script>
+  <script src="check.js"></script>
+</body>
+</html>

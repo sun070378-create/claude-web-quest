@@ -4,7 +4,7 @@
 不需要安裝任何東西。
 
 > 🎮 **想一步一步學做網頁？** 到 [`levels/`](levels/) 資料夾玩「網頁闖關」，
-> 一共 15 關，從 HTML 學到 JavaScript，每關都會自動檢查你有沒有過關。
+> 一共 20 關，從 HTML 學到 JavaScript，每關都會自動檢查你有沒有過關。
 > 用瀏覽器打開 `levels/index.html` 就能看到關卡地圖。
 
 ## 🌐 網頁上線（GitHub Pages）
