@@ -6,7 +6,7 @@
 ## 🌐 線上版
 
 設定好 GitHub Pages 之後，可以直接用瀏覽器打開關卡地圖：
-<https://sun070378-create.github.io/test-place-for-claude/levels/>
+<https://sun070378-create.github.io/claude-web-quest/levels/>
 
 線上版適合**看說明、看解答**。要**寫程式過關**，還是要下載到自己的電腦上修改（見下一段）。
 

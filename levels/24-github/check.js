@@ -58,7 +58,7 @@
     checks: [
       {
         text: "填好 MY_REPO，而且在 GitHub 上找得到這個專案",
-        hint: "格式是「帳號/專案名稱」，例如 \"sun070378-create/test-place-for-claude\"。專案要是公開的，電腦也要連上網路",
+        hint: "格式是「帳號/專案名稱」，例如 \"sun070378-create/claude-web-quest\"。專案要是公開的，電腦也要連上網路",
         test: function () {
           dataPromise = null;   /* 每次檢查都重新抓最新的資料 */
           return data().then(function (d) { return Boolean(d.repo); });

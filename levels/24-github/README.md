@@ -46,14 +46,14 @@
 打開這個資料夾的 `start.html`，把 `MY_REPO` 填成你的專案名稱：
 
 ```js
-const MY_REPO = "sun070378-create/test-place-for-claude";
+const MY_REPO = "sun070378-create/claude-web-quest";
 ```
 
 （就是你 GitHub 專案網址 `github.com/` 後面的那一段）
 
 ### 第 1 步：找到要改的檔案
 
-1. 打開你的 GitHub 專案：<https://github.com/sun070378-create/test-place-for-claude>
+1. 打開你的 GitHub 專案：<https://github.com/sun070378-create/claude-web-quest>
 2. 依序點進資料夾：`levels` → `24-github` → `guestbook.md`
 3. 點右上角的 **鉛筆圖示 ✏️**（滑鼠移上去會顯示「Edit this file」）
 
