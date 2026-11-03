@@ -16,35 +16,67 @@
       .replace(/\/+$/, "");
   }
 
-  function getJson(url) {
-    return fetch(url).then(function (response) {
-      if (!response.ok) throw new Error(response.status);
-      return response.json();
+  /* 查不到資料時，分成三種情況，給不一樣的說明：
+     notfound：GitHub 說沒有這個專案（MY_REPO 填錯，或專案不是公開的）
+     ratelimit：查太多次了。沒登入的查詢每小時只有 60 次，每檢查一次會用掉 3 次
+     offline：根本連不上 GitHub（沒網路） */
+  var PROBLEM_HINTS = {
+    ratelimit: "GitHub 查太多次了（每小時有次數限制），不是你填錯。大約一小時後再按「重新檢查」",
+    offline: "連不上 GitHub，請確認電腦有連上網路，再按「重新檢查」"
+  };
+
+  /* 送出查詢；被限制或沒網路時，丟出 { problem: … } */
+  function request(url, options) {
+    return fetch(url, options).then(function (response) {
+      var remaining = response.headers.get("x-ratelimit-remaining");
+      if (response.status === 403 || response.status === 429 || (remaining === "0" && !response.ok)) {
+        throw { problem: "ratelimit" };
+      }
+      return response;
+    }, function () {
+      throw { problem: "offline" };
     });
   }
 
-  /* 一次把需要的資料都抓回來，四個檢查共用（GitHub 對沒登入的查詢有次數限制） */
+  /* 一次把需要的資料都抓回來，四個檢查共用 */
   var dataPromise = null;
   function data() {
     if (dataPromise) return dataPromise;
     var repo = repoName();
     if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) {
-      dataPromise = Promise.resolve({ repo: null });
+      dataPromise = Promise.resolve({ repo: null, problem: "notfound" });
       return dataPromise;
     }
-    dataPromise = getJson(API + repo).then(function (info) {
-      return Promise.all([
-        getJson(API + repo + "/pulls?state=all&per_page=100").catch(function () { return []; }),
-        fetch(API + repo + "/contents/" + GUESTBOOK + "?ref=" + info.default_branch, {
-          headers: { Accept: "application/vnd.github.raw" }
-        }).then(function (r) { return r.ok ? r.text() : ""; }).catch(function () { return ""; })
-      ]).then(function (results) {
-        return { repo: info, pulls: results[0], guestbook: results[1] };
+    dataPromise = request(API + repo).then(function (response) {
+      if (!response.ok) return { repo: null, problem: "notfound" };
+      return response.json().then(function (info) {
+        return Promise.all([
+          request(API + repo + "/pulls?state=all&per_page=100").then(function (r) {
+            return r.ok ? r.json() : [];
+          }),
+          request(API + repo + "/contents/" + GUESTBOOK + "?ref=" + info.default_branch, {
+            headers: { Accept: "application/vnd.github.raw" }
+          }).then(function (r) {
+            return r.ok ? r.text() : "";
+          })
+        ]).then(function (results) {
+          return { repo: info, pulls: results[0], guestbook: results[1] };
+        });
       });
-    }).catch(function () {
-      return { repo: null };
+    }).catch(function (error) {
+      return { repo: null, problem: (error && error.problem) || "offline" };
     });
     return dataPromise;
+  }
+
+  /* 拿到資料後才檢查；被限制或沒網路時，直接換成說明情況的提示 */
+  function withData(check) {
+    return function () {
+      return data().then(function (d) {
+        if (PROBLEM_HINTS[d.problem]) return { ok: false, hint: PROBLEM_HINTS[d.problem] };
+        return check(d);
+      });
+    };
   }
 
   function myPulls(d) {
@@ -61,36 +93,30 @@
         hint: "格式是「帳號/專案名稱」，例如 \"sun070378-create/claude-web-quest\"。專案要是公開的，電腦也要連上網路",
         test: function () {
           dataPromise = null;   /* 每次檢查都重新抓最新的資料 */
-          return data().then(function (d) { return Boolean(d.repo); });
+          return withData(function (d) { return Boolean(d.repo); })();
         }
       },
       {
         text: "有一個從 my-first-branch 分支開出來的 Pull Request",
         hint: "在 GitHub 上修改 guestbook.md，按「Commit changes…」時選「Create a new branch」，分支名稱填 my-first-branch",
-        test: function () {
-          return data().then(function (d) { return myPulls(d).length > 0; });
-        }
+        test: withData(function (d) { return myPulls(d).length > 0; })
       },
       {
         text: "這個 Pull Request 已經合併（Merged）",
         hint: "打開那個 Pull Request，按綠色的「Merge pull request」→「Confirm merge」",
-        test: function () {
-          return data().then(function (d) {
-            return myPulls(d).some(function (p) { return Boolean(p.merged_at); });
-          });
-        }
+        test: withData(function (d) {
+          return myPulls(d).some(function (p) { return Boolean(p.merged_at); });
+        })
       },
       {
         text: "main 上的 guestbook.md 有你的留言",
         hint: "在 guestbook.md 最下面加一行「- 你的留言」（減號後面有空格），合併之後就會出現在 main 上",
-        test: function () {
-          return data().then(function (d) {
-            var lines = String(d.guestbook || "").split("\n").filter(function (line) {
-              return /^\s*-\s+\S/.test(line);
-            });
-            return lines.length >= 2;   /* 範例一行 + 你的留言 */
+        test: withData(function (d) {
+          var lines = String(d.guestbook || "").split("\n").filter(function (line) {
+            return /^\s*-\s+\S/.test(line);
           });
-        }
+          return lines.length >= 2;   /* 範例一行 + 你的留言 */
+        })
       }
     ]
   });
