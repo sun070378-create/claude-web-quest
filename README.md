@@ -57,7 +57,7 @@
 | 頁首 | `<header>` | 名字「Jason」和一句話介紹 |
 | 關於我 | 第一個 `<section>` | 一段自我介紹 |
 | 我的創作 | 第二個 `<section>`，裡面有 `<ul class="works">` | 三個作品標題 |
-| 聯絡方式 | 第三個 `<section>`，裡面有 `<ul class="contact">` | Email、Instagram、GitHub |
+| 聯絡方式 | 第三個 `<section>`，裡面有 `<ul class="contact">` | GitHub 帳號 |
 | 頁尾 | `<footer>` | 版權文字 |
 
 小知識：
@@ -90,11 +90,17 @@
 
   改 `<h3>` 裡的標題、`<p class="meta">` 裡的類型和年份。想增加作品，就把整組 `<li>...</li>` 複製一份。
 
-- **聯絡方式**：每一項有兩個地方要改：
+- **聯絡方式**：目前只放了 GitHub，每一項長這樣：
   ```html
-  <a href="mailto:jason@example.com">jason@example.com</a>
+  <li>
+    <span class="label">GitHub</span>
+    <a href="https://github.com/sun070378-create">github.com/sun070378-create</a>
+  </li>
   ```
-  `href="..."` 引號裡是**點下去會去的地方**，`>` 和 `</a>` 之間是**畫面上顯示的文字**，兩個都要改。
+  `href="..."` 引號裡是**點下去會去的地方**，`>` 和 `</a>` 之間是**畫面上顯示的文字**，改的時候兩個都要改。
+  想再加一項，就把整組 `<li>...</li>` 複製一份。Email 的網址要寫成 `mailto:你的信箱`。
+
+  > ⚠️ 這個網站是公開的，任何人都看得到。只放你願意讓所有人知道的帳號，不要放電話、住址。
 
 ### 🎨 改顏色
 
@@ -151,3 +157,12 @@ line-height: 1.9;    /* 行距，數字越大行與行之間越寬 */
 
 - 改壞了也沒關係！這個專案用 Git 管理，隨時可以回到之前的版本。
 - 一次改一點，改完就重新整理看看效果，最容易學會。
+
+---
+
+## 給路過的你
+
+這是 Jason 自己學做網頁的練習紀錄，「網頁闖關」也是照 Jason 的進度設計的。
+想從零學網頁的話，[MDN Web Docs](https://developer.mozilla.org/zh-TW/)、[freeCodeCamp](https://www.freecodecamp.org/) 這些更完整的資源會更適合你。
+
+不過歡迎參考這裡的內容！如果你也想玩這套關卡，或有任何問題，歡迎到 [Issues](https://github.com/sun070378-create/claude-web-quest/issues) 留言告訴我。

@@ -38,7 +38,9 @@
 
   /* 一個一個執行檢查條件，出錯就當作「還沒完成」。
      有些檢查需要等待（會回傳 Promise），所以要等前一個做完才做下一個，
-     每做完一個就呼叫 onUpdate 更新面板。ok 是 null 代表「還在檢查」。 */
+     每做完一個就呼叫 onUpdate 更新面板。ok 是 null 代表「還在檢查」。
+     檢查通常回傳 true / false；也可以回傳 { ok: false, hint: "…" }，
+     用這次的情況換掉原本的提示（例如「連不上網路」）。 */
   function runChecks(checks, onUpdate) {
     var results = checks.map(function (check) {
       return { text: check.text, hint: check.hint, ok: null };
@@ -49,7 +51,12 @@
         onUpdate(results, true);
         return;
       }
-      var finish = function (ok) {
+      var finish = function (value) {
+        var ok = value;
+        if (value && typeof value === "object" && typeof value.ok === "boolean") {
+          ok = value.ok;
+          if (value.hint) results[index].hint = value.hint;
+        }
         results[index].ok = Boolean(ok);
         onUpdate(results, false);
         runOne(index + 1);
