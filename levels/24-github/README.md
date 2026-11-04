@@ -137,7 +137,7 @@ const MY_REPO = "sun070378-create/claude-web-quest";
 - **GitHub Desktop**：有按鈕可以按的 GitHub 程式，最適合新手
 - **git 指令**：在終端機打字操作，工程師最常用的方式
 
-等你準備好了，跟 Claude 說「教我用 GitHub Desktop」就可以開始。
+等你準備好了，打開這份教學就可以開始：[GitHub Desktop 新手教學](../../guides/github-desktop.md)（在專案的 `guides/github-desktop.md`）。
 
 ## 額外挑戰
 

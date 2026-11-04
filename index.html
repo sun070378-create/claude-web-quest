@@ -113,6 +113,12 @@
       font-weight: 500;
     }
 
+    /* 作品的一句話介紹（works.js 裡有寫 description 才會出現） */
+    .works .description {
+      margin: 4px 0 0;
+      font-size: 0.95rem;
+    }
+
     .works .meta {
       margin: 4px 0 0;
       font-size: 0.9rem;
@@ -205,23 +211,14 @@
       <p>這是我做的第一個網頁，用來練習 HTML 和 CSS。之後會慢慢把這裡變成放作品和想法的小角落。</p>
     </section>
 
-    <!-- ===== 區塊二：我的創作（三個作品，每個作品是一個 li） ===== -->
+    <!-- ===== 區塊二：我的創作 =====
+         作品不是直接寫在這裡，而是寫在 works.js 裡，
+         再由頁面最下面的程式一個一個做成卡片，放進這個 <ul>。
+         想新增作品，請改 works.js -->
     <section>
       <h2>我的創作</h2>
-      <ul class="works">
-        <li>
-          <h3>《午後的巷口》</h3>
-          <p class="meta">攝影集・2026</p>
-        </li>
-        <li>
-          <h3>《寫給十年後的自己》</h3>
-          <p class="meta">散文・2025</p>
-        </li>
-        <li>
-          <h3>《城市裡的小綠地》</h3>
-          <p class="meta">手繪地圖・2025</p>
-        </li>
-      </ul>
+      <ul class="works" id="work-list"></ul>
+      <noscript><p>（作品清單需要開啟 JavaScript 才看得到）</p></noscript>
     </section>
 
     <!-- ===== 區塊三：聯絡方式（網站是公開的，只放願意讓所有人看到的帳號） ===== -->
@@ -242,5 +239,52 @@
     </footer>
 
   </div>
+
+  <!-- 載入作品清單（資料都在 works.js 裡） -->
+  <script src="works.js"></script>
+
+  <!-- 把作品清單做成卡片（這段平常不用改，想新增作品請改 works.js） -->
+  <script>
+    const workList = document.querySelector("#work-list");
+
+    // 讀不到 works.js（例如檔名打錯）或清單是空的，就顯示一句話，不要整塊空白
+    if (typeof works === "undefined" || works.length === 0) {
+      const empty = document.createElement("li");
+      empty.textContent = "作品準備中……";
+      workList.appendChild(empty);
+    } else {
+      works.forEach(function (work) {
+        // 每個作品是一個 <li>，裡面有標題 <h3> 和「類型・年份」<p class="meta">
+        const li = document.createElement("li");
+        const title = document.createElement("h3");
+
+        // 有網址的作品，標題做成連結
+        if (work.url) {
+          const link = document.createElement("a");
+          link.href = work.url;
+          link.textContent = work.title;
+          title.appendChild(link);
+        } else {
+          title.textContent = work.title;
+        }
+        li.appendChild(title);
+
+        // 有寫一句話介紹才顯示
+        if (work.description) {
+          const description = document.createElement("p");
+          description.className = "description";
+          description.textContent = work.description;
+          li.appendChild(description);
+        }
+
+        const meta = document.createElement("p");
+        meta.className = "meta";
+        meta.textContent = work.type + "・" + work.year;
+        li.appendChild(meta);
+
+        workList.appendChild(li);
+      });
+    }
+  </script>
 </body>
 </html>
