@@ -10,6 +10,9 @@
 //   year        年份（必填）
 //   url         作品的網址（可以不寫；有寫的話，作品名稱就可以點）
 //   description 一句話介紹（可以不寫）
+//   icon        圖示（可以不寫），兩種寫法：
+//                 一個表情符號，例如 "🎮"
+//                 一張圖片的網址，例如 "https://…/icon.svg"（網址裡有 / 就會當成圖片）
 //
 // 小提醒：
 //   - 文字前後要有引號 ""，年份是數字，不用引號
@@ -24,7 +27,8 @@ const works = [
   //   type: "類型",
   //   year: 2026,
   //   url: "https://…",
-  //   description: "一句話介紹"
+  //   description: "一句話介紹",
+  //   icon: "📷"
   // },
 
   {
@@ -32,13 +36,16 @@ const works = [
     type: "網頁工具",
     year: 2026,
     url: "https://sun070378-create.github.io/claude-commute-timer/",
-    description: "記錄搭捷運、輕軌時的等車、乘車、轉乘時間，統計大家真實的通勤時間"
+    description: "記錄搭捷運、輕軌時的等車、乘車、轉乘時間，統計大家真實的通勤時間",
+    // 直接用通勤碼表網站上的圖示，那邊換了新圖示，這裡也會自動跟著變
+    icon: "https://sun070378-create.github.io/claude-commute-timer/icons/icon.svg"
   },
   {
     title: "網頁闖關",
     type: "教學網站",
     year: 2026,
     url: "levels/index.html",
-    description: "25 關從零開始學做網頁，每一關都會自動檢查有沒有過關"
+    description: "25 關從零開始學做網頁，每一關都會自動檢查有沒有過關",
+    icon: "🎮"
   }
 ];
