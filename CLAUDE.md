@@ -2,7 +2,7 @@
 
 在這個專案工作前先讀這份。專案介紹看 `README.md`；Jason 所有專案的總清單不放在這裡。
 
-> **跨專案的共通慣例、待辦和工作環境說明**在私人 repo [`sun070378-create/control-claude-projects`](https://github.com/sun070378-create/control-claude-projects) 的 `CLAUDE.md`（總索引）。如果它還不在工作環境裡，開始工作前先把它加進來讀；這份只寫這個專案自己的事。
+> **跨專案的共通慣例、待辦和工作環境說明**在 Jason 的私人總索引 repo 的 `CLAUDE.md`（名稱不寫在公開的地方）。開始工作前，如果工作環境裡還沒有它，從 Jason 可存取的 repo 清單找出總索引加進來讀，找不到就問 Jason；這份只寫這個專案自己的事。
 
 ## 一定要遵守
 
