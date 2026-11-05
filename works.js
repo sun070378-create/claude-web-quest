@@ -20,14 +20,25 @@
 const works = [
   // ↓↓↓ 新作品加在這裡，例如：
   // {
-  //   title: "通勤時間記錄",
-  //   type: "網頁工具",
+  //   title: "作品名稱",
+  //   type: "類型",
   //   year: 2026,
-  //   url: "https://sun070378-create.github.io/claude-commute-timer/",
-  //   description: "記錄每天通勤花了多久"
+  //   url: "https://…",
+  //   description: "一句話介紹"
   // },
 
-  { title: "《午後的巷口》", type: "攝影集", year: 2026 },
-  { title: "《寫給十年後的自己》", type: "散文", year: 2025 },
-  { title: "《城市裡的小綠地》", type: "手繪地圖", year: 2025 }
+  {
+    title: "通勤碼表",
+    type: "網頁工具",
+    year: 2026,
+    url: "https://sun070378-create.github.io/claude-commute-timer/",
+    description: "記錄搭捷運、輕軌時的等車、乘車、轉乘時間，統計大家真實的通勤時間"
+  },
+  {
+    title: "網頁闖關",
+    type: "教學網站",
+    year: 2026,
+    url: "levels/index.html",
+    description: "25 關從零開始學做網頁，每一關都會自動檢查有沒有過關"
+  }
 ];
