@@ -113,6 +113,17 @@
       font-weight: 500;
     }
 
+    /* 作品名稱前面的小圖示（works.js 裡有寫 icon 才會出現） */
+    .works .icon {
+      display: inline-block;
+      width: 1.4em;
+      height: 1.4em;
+      margin-right: 8px;
+      vertical-align: -0.3em;   /* 往下一點，跟文字對齊 */
+      text-align: center;
+      border-radius: 6px;
+    }
+
     /* 作品的一句話介紹（works.js 裡有寫 description 才會出現） */
     .works .description {
       margin: 4px 0 0;
@@ -235,7 +246,7 @@
 
     <!-- ===== 頁尾：版權或簡短文字 ===== -->
     <footer>
-      © 2026 Jason・謝謝你的來訪・<a href="levels/index.html">🎮 我的網頁闖關</a>
+      © 2026 Jason・謝謝你的來訪・<a href="https://github.com/sun070378-create/claude-web-quest">這個網站的原始碼在 GitHub</a>
     </footer>
 
   </div>
@@ -258,6 +269,23 @@
         const li = document.createElement("li");
         const title = document.createElement("h3");
 
+        // 有圖示的作品，在名稱前面放圖示：網址就放圖片，不是網址就當成表情符號
+        // 圖示只是裝飾，所以 alt 是空的，報讀軟體會跳過它
+        let icon = null;
+        if (work.icon && work.icon.indexOf("/") !== -1) {
+          icon = document.createElement("img");
+          icon.src = work.icon;
+          icon.alt = "";
+        } else if (work.icon) {
+          icon = document.createElement("span");
+          icon.textContent = work.icon;
+          icon.setAttribute("aria-hidden", "true");
+        }
+        if (icon) {
+          icon.className = "icon";
+          title.appendChild(icon);
+        }
+
         // 有網址的作品，標題做成連結
         if (work.url) {
           const link = document.createElement("a");
@@ -265,7 +293,7 @@
           link.textContent = work.title;
           title.appendChild(link);
         } else {
-          title.textContent = work.title;
+          title.appendChild(document.createTextNode(work.title));
         }
         li.appendChild(title);
 

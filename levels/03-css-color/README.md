@@ -64,4 +64,4 @@ p {
 ## 額外挑戰
 
 - 試試 `font-weight: bold;` 和 `text-align: center;`。
-- 試試 `font-family`，換成不同字體（可參考專案根目錄的 README）。
+- 試試 `font-family`，換成不同字體（可參考 [個人網頁修改說明](../../guides/edit-homepage.md) 的「改字體」）。
