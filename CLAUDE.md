@@ -2,9 +2,11 @@
 
 在這個專案工作前先讀這份。專案介紹看 `README.md`；Jason 所有專案的總清單不放在這裡。
 
+> **跨專案的共通慣例、待辦和工作環境說明**在私人 repo [`sun070378-create/control-claude-projects`](https://github.com/sun070378-create/control-claude-projects) 的 `CLAUDE.md`（總索引）。如果它還不在工作環境裡，開始工作前先把它加進來讀；這份只寫這個專案自己的事。
+
 ## 一定要遵守
 
-- **語言**：檔案內容、註解、commit 訊息、PR 說明都用繁體中文（台灣）。說明文字寫給初學者看得懂，語氣延續現有檔案。
+- **語氣**：語言、PR 流程等共通慣例見總索引。這個專案的說明文字要寫給初學者看得懂，語氣延續現有檔案。
 - **雙擊就能用**：所有網頁都要同時在本機雙擊打開（`file://`）和 GitHub Pages（`https://`）下正常運作。
   - 不引入建置工具、npm 套件或外部 CDN。
   - 站內連結要指到檔案（例如 `levels/index.html`），不要寫成以 `/` 結尾的資料夾。
@@ -13,7 +15,6 @@
 - **網站是公開的**：聯絡方式只放 GitHub，不放電話、住址、Email。
 - **第 24 關要 Jason 親手做**：不要代替他建立 `my-first-branch`、開 PR 或修改 `levels/24-github/guestbook.md`。
 - **第 21 關 `start.html` 的錯誤是故意的**（除錯練習），不要修。
-- 用 feature branch 開 PR 合併到 `main`。
 
 ## 常見修改
 
